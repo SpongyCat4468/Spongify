@@ -1,8 +1,10 @@
 package me.spongycat.spongify;
 
 import me.spongycat.spongify.enchants.AutoReplantEnchantment;
+import me.spongycat.spongify.enchants.SmeltingTouchEnchantment;
 import me.spongycat.spongify.recipes.AutoReplantRecipe;
 import me.spongycat.spongify.recipes.CompressedCropsRecipe;
+import me.spongycat.spongify.recipes.SmeltingTouchRecipe;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
@@ -16,6 +18,7 @@ public final class Spongify extends JavaPlugin {
 
     public static me.spongycat.spongify.Spongify plugin;
     public static me.spongycat.spongify.enchants.AutoReplantEnchantment autoReplantEnchantment;
+    public static me.spongycat.spongify.enchants.SmeltingTouchEnchantment smeltingTouchEnchantment;
 
     @Override
     public void onEnable() {
@@ -36,6 +39,17 @@ public final class Spongify extends JavaPlugin {
         }
         registerEnchantment(autoReplantEnchantment);
         this.getServer().getPluginManager().registerEvents(autoReplantEnchantment, this);
+
+        // Smelting Touch Enchant
+        smeltingTouchEnchantment = new SmeltingTouchEnchantment("smelting_touch");
+        if (getConfig().getBoolean("Allow_Pickaxe_Smithing")) {
+            AutoReplantRecipe.registerRecipe();
+        }
+        registerEnchantment(smeltingTouchEnchantment);
+        this.getServer().getPluginManager().registerEvents(smeltingTouchEnchantment, this);
+        this.getServer().getPluginManager().registerEvents(new SmeltingTouchRecipe(), this);
+        SmeltingTouchRecipe.registerRecipe();
+
 
         // Compressed Crops
         if (getConfig().getBoolean("Allow_Compressed_Crafting")) {
@@ -79,6 +93,27 @@ public final class Spongify extends JavaPlugin {
 
             if(byName.containsKey(autoReplantEnchantment.getName())) {
                 byName.remove(autoReplantEnchantment.getName());
+            }
+        } catch (Exception ignored) { }
+        // Smelting Touch Enchant
+        try {
+            Field keyField = Enchantment.class.getDeclaredField("byKey");
+
+            keyField.setAccessible(true);
+            @SuppressWarnings("unchecked")
+            HashMap<NamespacedKey, Enchantment> byKey = (HashMap<NamespacedKey, Enchantment>) keyField.get(null);
+
+            if(byKey.containsKey(smeltingTouchEnchantment.getKey())) {
+                byKey.remove(smeltingTouchEnchantment.getKey());
+            }
+            Field nameField = Enchantment.class.getDeclaredField("byName");
+
+            nameField.setAccessible(true);
+            @SuppressWarnings("unchecked")
+            HashMap<String, Enchantment> byName = (HashMap<String, Enchantment>) nameField.get(null);
+
+            if(byName.containsKey(smeltingTouchEnchantment.getName())) {
+                byName.remove(smeltingTouchEnchantment.getName());
             }
         } catch (Exception ignored) { }
     }
