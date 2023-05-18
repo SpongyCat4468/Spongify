@@ -6,3 +6,8 @@ Allow_Hoe_Crafting: true
 
 # Compressed Crop
 Allow_Compressed_Crafting: true
+
+# Smelting Touch
+Allow_Book_Crafting: true
+Allow_Adding_Smelting_Enchant: true
+Enable_Smelting_Touch: true
