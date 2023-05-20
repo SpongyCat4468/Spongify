@@ -5,3 +5,7 @@ api-version: 1.19
 load: STARTUP
 authors: [SpongyCat]
 description: Spongify Your World!
+commands:
+  lore:
+    description: Add lore to your item.
+    usage: /<command>

@@ -1,8 +1,10 @@
 package me.spongycat.spongify;
 
+import me.spongycat.spongify.commands.LoreCommand;
 import me.spongycat.spongify.enchants.AutoReplantEnchantment;
 import me.spongycat.spongify.enchants.SmeltingTouchEnchantment;
 import me.spongycat.spongify.recipes.AutoReplantRecipe;
+import me.spongycat.spongify.recipes.BundleRecipe;
 import me.spongycat.spongify.recipes.CompressedCropsRecipe;
 import me.spongycat.spongify.recipes.SmeltingTouchRecipe;
 import org.bukkit.Bukkit;
@@ -47,6 +49,8 @@ public final class Spongify extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new SmeltingTouchRecipe(), this);
         SmeltingTouchRecipe.registerRecipe();
 
+        // Bundles
+        BundleRecipe.registerRecipe();
 
         // Compressed Crops
         if (getConfig().getBoolean("Allow_Compressed_Crafting")) {
@@ -63,7 +67,13 @@ public final class Spongify extends JavaPlugin {
             Bukkit.addRecipe(new CompressedCropsRecipe().getPotatoDecompress9Recipe());
             Bukkit.addRecipe(new CompressedCropsRecipe().getBeetrootCompress81Recipe());
             Bukkit.addRecipe(new CompressedCropsRecipe().getBeetrootDecompress9Recipe());
+
+        // Lore
+        getCommand("lore").setExecutor(new LoreCommand());
         }
+
+
+
 
 
 
