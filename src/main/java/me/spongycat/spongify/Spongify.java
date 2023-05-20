@@ -42,9 +42,6 @@ public final class Spongify extends JavaPlugin {
 
         // Smelting Touch Enchant
         smeltingTouchEnchantment = new SmeltingTouchEnchantment("smelting_touch");
-        if (getConfig().getBoolean("Allow_Pickaxe_Smithing")) {
-            AutoReplantRecipe.registerRecipe();
-        }
         registerEnchantment(smeltingTouchEnchantment);
         this.getServer().getPluginManager().registerEvents(smeltingTouchEnchantment, this);
         this.getServer().getPluginManager().registerEvents(new SmeltingTouchRecipe(), this);

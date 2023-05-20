@@ -33,14 +33,11 @@ public class AutoReplantEnchantment extends Enchantment implements Listener {
         ItemStack tool = player.getInventory().getItemInMainHand();
         Material cropBlockType;
         if(tool.getEnchantments().containsKey(Enchantment.getByKey(Spongify.autoReplantEnchantment.getKey()))) {
-
             if (cropList.contains(block.getType())) {
                 cropBlockType = block.getType();
-
             } else {
                 return;
             }
-
 
             // Main functionality of the plugin
             if (isFullyGrown(block)) {

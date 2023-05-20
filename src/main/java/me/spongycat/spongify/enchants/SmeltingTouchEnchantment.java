@@ -57,156 +57,96 @@ public class SmeltingTouchEnchantment extends Enchantment implements Listener {
         ItemStack drop = new ItemStack(Material.AIR);
 
         if (plugin.getConfig().getBoolean("Enable_Smelting_Touch")) {
+            Random random = new Random();
             if (tool.getEnchantments().containsKey(Enchantment.getByKey(Spongify.smeltingTouchEnchantment.getKey()))) {
                 if (oreList.contains(block.getType())) {
                     oreBlockType = block.getType();
                     if (oreBlockType == Material.COPPER_ORE) {
                         if (!tool.containsEnchantment(Enchantment.LOOT_BONUS_BLOCKS)) {
-                            Random random = new Random();
                             drop = getDrop(Material.COPPER_INGOT, random.nextInt(4) + 2);
                         } else if (tool.getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS) == 1) {
-                            Random random = new Random();
                             drop = getDrop(Material.COPPER_INGOT, random.nextInt(9) + 1);
                         } else if (tool.getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS) == 2) {
-                            Random random = new Random();
                             drop = getDrop(Material.COPPER_INGOT, random.nextInt(14) + 1);
                         } else if (tool.getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS) == 3) {
-                            Random random = new Random();
                             drop = getDrop(Material.COPPER_INGOT, random.nextInt(19) + 1);
                         }
-                        block.setType(Material.AIR);
-                        block.getWorld().dropItem(block.getLocation(), drop);
-                        event.setCancelled(true);
                     } else if (oreBlockType == Material.IRON_ORE) {
                         if (!tool.containsEnchantment(Enchantment.LOOT_BONUS_BLOCKS)) {
                             drop = getDrop(Material.IRON_INGOT, 1);
                         } else if (tool.getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS) == 1) {
-                            Random random = new Random();
                             drop = getDrop(Material.IRON_INGOT, random.nextInt(2) + 1);
                         } else if (tool.getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS) == 2) {
-                            Random random = new Random();
                             drop = getDrop(Material.IRON_INGOT, random.nextInt(3) + 1);
                         } else if (tool.getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS) == 3) {
-                            Random random = new Random();
                             drop = getDrop(Material.IRON_INGOT, random.nextInt(4) + 1);
                         }
-                        block.setType(Material.AIR);
-                        block.getWorld().dropItem(block.getLocation(), drop);
-                        event.setCancelled(true);
                     } else if (oreBlockType == Material.GOLD_ORE) {
                         if (!tool.containsEnchantment(Enchantment.LOOT_BONUS_BLOCKS)) {
                             drop = getDrop(Material.GOLD_INGOT, 1);
                         } else if (tool.getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS) == 1) {
-                            Random random = new Random();
                             drop = getDrop(Material.GOLD_INGOT, random.nextInt(2) + 1);
                         } else if (tool.getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS) == 2) {
-                            Random random = new Random();
                             drop = getDrop(Material.GOLD_INGOT, random.nextInt(3) + 1);
                         } else if (tool.getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS) == 3) {
-                            Random random = new Random();
                             drop = getDrop(Material.GOLD_INGOT, random.nextInt(4) + 1);
                         }
-                        block.setType(Material.AIR);
-                        block.getWorld().dropItem(block.getLocation(), drop);
-                        event.setCancelled(true);
                     } else if (oreBlockType == Material.DEEPSLATE_COPPER_ORE) {
                         if (!tool.containsEnchantment(Enchantment.LOOT_BONUS_BLOCKS)) {
-                            Random random = new Random();
                             drop = getDrop(Material.COPPER_INGOT, random.nextInt(4) + 2);
                         } else if (tool.getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS) == 1) {
-                            Random random = new Random();
                             drop = getDrop(Material.COPPER_INGOT, random.nextInt(9) + 1);
                         } else if (tool.getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS) == 2) {
-                            Random random = new Random();
                             drop = getDrop(Material.COPPER_INGOT, random.nextInt(14) + 1);
                         } else if (tool.getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS) == 3) {
-                            Random random = new Random();
                             drop = getDrop(Material.COPPER_INGOT, random.nextInt(19) + 1);
                         }
-                        block.setType(Material.AIR);
-                        block.getWorld().dropItem(block.getLocation(), drop);
-                        event.setCancelled(true);
                     } else if (oreBlockType == Material.DEEPSLATE_IRON_ORE) {
                         if (!tool.containsEnchantment(Enchantment.LOOT_BONUS_BLOCKS)) {
                             drop = getDrop(Material.IRON_INGOT, 1);
                         } else if (tool.getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS) == 1) {
-                            Random random = new Random();
                             drop = getDrop(Material.IRON_INGOT, random.nextInt(2) + 1);
                         } else if (tool.getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS) == 2) {
-                            Random random = new Random();
                             drop = getDrop(Material.IRON_INGOT, random.nextInt(3) + 1);
                         } else if (tool.getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS) == 3) {
-                            Random random = new Random();
                             drop = getDrop(Material.IRON_INGOT, random.nextInt(4) + 1);
                         }
-                        block.setType(Material.AIR);
-                        block.getWorld().dropItem(block.getLocation(), drop);
-                        event.setCancelled(true);
                     } else if (oreBlockType == Material.DEEPSLATE_GOLD_ORE) {
                         if (!tool.containsEnchantment(Enchantment.LOOT_BONUS_BLOCKS)) {
                             drop = getDrop(Material.GOLD_INGOT, 1);
                         } else if (tool.getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS) == 1) {
-                            Random random = new Random();
                             drop = getDrop(Material.GOLD_INGOT, random.nextInt(2) + 1);
                         } else if (tool.getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS) == 2) {
-                            Random random = new Random();
                             drop = getDrop(Material.GOLD_INGOT, random.nextInt(3) + 1);
                         } else if (tool.getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS) == 3) {
-                            Random random = new Random();
                             drop = getDrop(Material.GOLD_INGOT, random.nextInt(4) + 1);
                         }
-                        block.setType(Material.AIR);
-                        block.getWorld().dropItem(block.getLocation(), drop);
-                        event.setCancelled(true);
                     } else if (oreBlockType == Material.NETHER_GOLD_ORE) {
                         drop = new ItemStack(Material.GOLD_INGOT);
-                        block.setType(Material.AIR);
-                        block.getWorld().dropItem(block.getLocation(), drop);
-                        event.setCancelled(true);
                     } else if (oreBlockType == Material.ANCIENT_DEBRIS) {
                         drop = new ItemStack(Material.NETHERITE_SCRAP);
-                        block.setType(Material.AIR);
-                        block.getWorld().dropItem(block.getLocation(), drop);
-                        event.setCancelled(true);
                     } else if (oreBlockType == Material.RAW_COPPER_BLOCK) {
                         drop = new ItemStack(Material.COPPER_BLOCK);
-                        block.setType(Material.AIR);
-                        block.getWorld().dropItem(block.getLocation(), drop);
-                        event.setCancelled(true);
                     } else if (oreBlockType == Material.RAW_IRON_BLOCK) {
                         drop = new ItemStack(Material.IRON_BLOCK);
-                        block.setType(Material.AIR);
-                        block.getWorld().dropItem(block.getLocation(), drop);
-                        event.setCancelled(true);
                     } else if (oreBlockType == Material.RAW_GOLD_BLOCK) {
                         drop = new ItemStack(Material.GOLD_BLOCK);
-                        block.setType(Material.AIR);
-                        block.getWorld().dropItem(block.getLocation(), drop);
-                        event.setCancelled(true);
                     }
                 }
                 if (blockList.contains(block.getType())) {
                     blockType = block.getType();
                     if (blockType == Material.SAND) {
                         drop = new ItemStack(Material.GLASS);
-                        block.setType(Material.AIR);
-                        block.getWorld().dropItem(block.getLocation(), drop);
-                        event.setCancelled(true);
                     } else if (blockType == Material.RED_SAND) {
                         drop = new ItemStack(Material.GLASS);
-                        block.setType(Material.AIR);
-                        block.getWorld().dropItem(block.getLocation(), drop);
-                        event.setCancelled(true);
                     }
                 }
+                block.setType(Material.AIR);
+                block.getWorld().dropItem(block.getLocation(), drop);
+                event.setCancelled(true);
             }
         }
-
-
-
     }
-
-
 
     @Override
     public String getName() {
@@ -240,12 +180,9 @@ public class SmeltingTouchEnchantment extends Enchantment implements Listener {
 
     @Override
     public boolean conflictsWith(Enchantment enchantment) {
-        if (enchantment == Enchantment.SILK_TOUCH) {
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
+
 
     @Override
     public boolean canEnchantItem(ItemStack itemStack) {

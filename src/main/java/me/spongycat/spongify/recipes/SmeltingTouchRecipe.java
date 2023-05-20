@@ -35,7 +35,6 @@ public class SmeltingTouchRecipe implements Listener {
         meta3.setDisplayName(ChatColor.LIGHT_PURPLE + "Diamond Core");
         superDiamond.setItemMeta(meta3);
 
-
         ShapedRecipe diamondRecipe = new ShapedRecipe(new NamespacedKey(plugin, "diamond"), superDiamond);
         diamondRecipe.shape("XXX", "XAX", "XXX");
         diamondRecipe.setIngredient('X', Material.DIAMOND_BLOCK);
