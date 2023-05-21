@@ -31,6 +31,8 @@ public class LoreCommand implements CommandExecutor {
                 itemInHandMeta.setLore(lore);
                 itemInHand.setItemMeta(itemInHandMeta);
                 pInventory.setItemInMainHand(itemInHand);
+            } else {
+                p.sendMessage(ChatColor.RED + "You don't have spongify.lore permission to perform this command!");
             }
         }
         return true;

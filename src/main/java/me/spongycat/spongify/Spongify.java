@@ -3,6 +3,7 @@ package me.spongycat.spongify;
 import me.spongycat.spongify.commands.LoreCommand;
 import me.spongycat.spongify.enchants.AutoReplantEnchantment;
 import me.spongycat.spongify.enchants.SmeltingTouchEnchantment;
+import me.spongycat.spongify.listeners.ArmorStandPlaceListener;
 import me.spongycat.spongify.recipes.AutoReplantRecipe;
 import me.spongycat.spongify.recipes.BundleRecipe;
 import me.spongycat.spongify.recipes.CompressedCropsRecipe;
@@ -15,6 +16,7 @@ import me.spongycat.spongify.listeners.TillMyceliumListener;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
+import java.util.logging.Level;
 
 public final class Spongify extends JavaPlugin {
 
@@ -24,23 +26,32 @@ public final class Spongify extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        plugin = this;
 
-        // Tillable Mycelium Listener
+        // Tillable Mycelium
         getServer().getPluginManager().registerEvents(new TillMyceliumListener(), this);
+        getServer().getLogger().log(Level.INFO, "[Spongify] Tillable Mycelium Enabled");
+
+        // Armor Stand With Arms
+        if (plugin.getConfig().getBoolean("Enabled")) {
+            getServer().getPluginManager().registerEvents(new ArmorStandPlaceListener(), this);
+            getServer().getLogger().log(Level.INFO, "[Spongify] Armor Stand with Arms Enabled");
+        }
+
 
         // Config
         getConfig().options().copyDefaults();
         saveDefaultConfig();
-
+        getServer().getLogger().log(Level.INFO, "[Spongify] Config Saved");
 
         // Auto Replant Enchant
-        plugin = this;
         autoReplantEnchantment = new AutoReplantEnchantment("auto_replant");
         if (getConfig().getBoolean("Allow_Hoe_Crafting")) {
             AutoReplantRecipe.registerRecipe();
         }
         registerEnchantment(autoReplantEnchantment);
         this.getServer().getPluginManager().registerEvents(autoReplantEnchantment, this);
+        getServer().getLogger().log(Level.INFO, "[Spongify] Auto Replant Enchant Registered");
 
         // Smelting Touch Enchant
         smeltingTouchEnchantment = new SmeltingTouchEnchantment("smelting_touch");
@@ -48,9 +59,14 @@ public final class Spongify extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(smeltingTouchEnchantment, this);
         this.getServer().getPluginManager().registerEvents(new SmeltingTouchRecipe(), this);
         SmeltingTouchRecipe.registerRecipe();
+        getServer().getLogger().log(Level.INFO, "[Spongify] Smelting Touch Enchant Registered");
 
         // Bundles
-        BundleRecipe.registerRecipe();
+        if (plugin.getConfig().getBoolean("Recipe_Enabled")) {
+            BundleRecipe.registerRecipe();
+            getServer().getLogger().log(Level.INFO, "[Spongify] Bundle Recipe Registered");
+        }
+
 
         // Compressed Crops
         if (getConfig().getBoolean("Allow_Compressed_Crafting")) {
@@ -67,14 +83,13 @@ public final class Spongify extends JavaPlugin {
             Bukkit.addRecipe(new CompressedCropsRecipe().getPotatoDecompress9Recipe());
             Bukkit.addRecipe(new CompressedCropsRecipe().getBeetrootCompress81Recipe());
             Bukkit.addRecipe(new CompressedCropsRecipe().getBeetrootDecompress9Recipe());
-
-        // Lore
-        getCommand("lore").setExecutor(new LoreCommand());
+            getServer().getLogger().log(Level.INFO, "[Spongify] Compressed Crops Recipe Registered");
         }
-
-
-
-
+        // Lore
+        if (plugin.getConfig().getBoolean("Command_Enabled")) {
+            getCommand("lore").setExecutor(new LoreCommand());
+            getServer().getLogger().log(Level.INFO, "[Spongify] Lore Command Registered");
+        }
 
 
     }

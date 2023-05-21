@@ -11,3 +11,12 @@ Allow_Compressed_Crafting: true
 Allow_Book_Crafting: true
 Allow_Adding_Smelting_Enchant: true
 Enable_Smelting_Touch: true
+
+# Armor Stand with Arms
+Enabled: true
+
+# Bundle
+Recipe_Enabled: true
+
+# Lore
+Command_Enabled: true
