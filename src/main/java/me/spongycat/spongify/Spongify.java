@@ -1,13 +1,11 @@
 package me.spongycat.spongify;
 
-import me.spongycat.spongify.commands.LoreCommand;
+import me.spongycat.spongify.commands.SpongifyCommand;
 import me.spongycat.spongify.enchants.AutoReplantEnchantment;
 import me.spongycat.spongify.enchants.SmeltingTouchEnchantment;
 import me.spongycat.spongify.listeners.ArmorStandPlaceListener;
-import me.spongycat.spongify.recipes.AutoReplantRecipe;
-import me.spongycat.spongify.recipes.BundleRecipe;
-import me.spongycat.spongify.recipes.CompressedCropsRecipe;
-import me.spongycat.spongify.recipes.SmeltingTouchRecipe;
+import me.spongycat.spongify.listeners.TabCompleteListener;
+import me.spongycat.spongify.recipes.*;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
@@ -23,6 +21,7 @@ public final class Spongify extends JavaPlugin {
     public static me.spongycat.spongify.Spongify plugin;
     public static me.spongycat.spongify.enchants.AutoReplantEnchantment autoReplantEnchantment;
     public static me.spongycat.spongify.enchants.SmeltingTouchEnchantment smeltingTouchEnchantment;
+    public static final String version = "1.1.3";
 
     @Override
     public void onEnable() {
@@ -67,6 +66,10 @@ public final class Spongify extends JavaPlugin {
             getServer().getLogger().log(Level.INFO, "[Spongify] Bundle Recipe Registered");
         }
 
+        // Rotten Flesh To Leather
+        RottenFleshToLeatherRecipe.registerRecipe();
+        getServer().getLogger().log(Level.INFO, "[Spongify] Leather Recipe Registered");
+
 
         // Compressed Crops
         if (getConfig().getBoolean("Allow_Compressed_Crafting")) {
@@ -87,10 +90,12 @@ public final class Spongify extends JavaPlugin {
         }
         // Lore
         if (plugin.getConfig().getBoolean("Command_Enabled")) {
-            getCommand("lore").setExecutor(new LoreCommand());
+            getCommand("spongify").setExecutor(new SpongifyCommand());
             getServer().getLogger().log(Level.INFO, "[Spongify] Lore Command Registered");
         }
 
+        // Auto Tab Complete
+        this.getServer().getPluginManager().registerEvents(new TabCompleteListener(), this);
 
     }
 

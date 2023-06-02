@@ -55,4 +55,19 @@ public class AutoReplantRecipe {
         Bukkit.addRecipe(recipe);
         Bukkit.addRecipe(recipe2);
     }
+    public static ItemStack getHoe() {
+        ItemStack hoe = new ItemStack(Material.NETHERITE_HOE, 1);
+        hoe.addUnsafeEnchantment(Spongify.autoReplantEnchantment, 1);
+        hoe.addEnchantment(Enchantment.DIG_SPEED, 5);
+        hoe.addEnchantment(Enchantment.DURABILITY, 3);
+        hoe.addEnchantment(Enchantment.MENDING, 1);
+        hoe.addEnchantment(Enchantment.LOOT_BONUS_BLOCKS, 3);
+        ItemMeta meta = hoe.getItemMeta();
+        ArrayList<String> lore = new ArrayList<>();
+        lore.add(ChatColor.GOLD + "Auto Replant I");
+        meta.setLore(lore);
+        hoe.setItemMeta(meta);
+
+        return hoe;
+    }
 }

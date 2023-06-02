@@ -6,6 +6,6 @@ load: STARTUP
 authors: [SpongyCat]
 description: Spongify Your World!
 commands:
-  lore:
-    description: Add lore to your item.
+  spongify:
+    description: All command for spongify.
     usage: /<command>

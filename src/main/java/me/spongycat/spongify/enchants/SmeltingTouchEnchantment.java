@@ -44,7 +44,9 @@ public class SmeltingTouchEnchantment extends Enchantment implements Listener {
             );
     private final List<Material> blockList = Arrays.asList(
             Material.SAND,
-            Material.RED_SAND
+            Material.RED_SAND,
+            Material.WET_SPONGE,
+            Material.STONE
     );
     @EventHandler
     public void BreakEvent(BlockBreakEvent event) {
@@ -132,6 +134,10 @@ public class SmeltingTouchEnchantment extends Enchantment implements Listener {
                     } else if (oreBlockType == Material.RAW_GOLD_BLOCK) {
                         drop = new ItemStack(Material.GOLD_BLOCK);
                     }
+                    event.setCancelled(true);
+                    block.setType(Material.AIR);
+                    block.getWorld().dropItem(block.getLocation(), drop);
+
                 }
                 if (blockList.contains(block.getType())) {
                     blockType = block.getType();
@@ -139,11 +145,16 @@ public class SmeltingTouchEnchantment extends Enchantment implements Listener {
                         drop = new ItemStack(Material.GLASS);
                     } else if (blockType == Material.RED_SAND) {
                         drop = new ItemStack(Material.GLASS);
+                    } else if (blockType == Material.WET_SPONGE) {
+                        drop = new ItemStack(Material.SPONGE);
+                    } else if (blockType == Material.STONE) {
+                        drop = new ItemStack(Material.SMOOTH_STONE);
                     }
+                    event.setCancelled(true);
+                    block.setType(Material.AIR);
+                    block.getWorld().dropItem(block.getLocation(), drop);
+
                 }
-                block.setType(Material.AIR);
-                block.getWorld().dropItem(block.getLocation(), drop);
-                event.setCancelled(true);
             }
         }
     }

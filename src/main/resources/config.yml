@@ -1,3 +1,11 @@
+# ---------------------------- #
+#          Spongify            #
+#         by SpongyCat         #
+#    Discord: SpongyCat#1562   #
+#    Thanks for downloading    #
+#          the plugin!         #
+# ---------------------------- #
+
 # Tillable Mycelium
 Mycelium_Tillable: true
 
@@ -18,5 +26,6 @@ Enabled: true
 # Bundle
 Recipe_Enabled: true
 
-# Lore
+# Command
+# /spongify
 Command_Enabled: true

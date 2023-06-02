@@ -55,6 +55,17 @@ public class SmeltingTouchRecipe implements Listener {
 
     }
 
+    public static ItemStack getSmeltingTouchBook() {
+        ItemStack ore = new ItemStack(Material.ENCHANTED_BOOK, 1);
+        ItemMeta meta2 = ore.getItemMeta();
+        ArrayList<String> lore2 = new ArrayList<>();
+        lore2.add(ChatColor.GOLD + "Smelting Touch I");
+        meta2.setLore(lore2);
+        ore.setItemMeta(meta2);
+
+        return ore;
+    }
+
     @EventHandler
     public void onPrepareSmithing(PrepareSmithingEvent event) {
         NamespacedKey key = new NamespacedKey(plugin, "custom_smithing_recipe");
