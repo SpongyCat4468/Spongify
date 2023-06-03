@@ -1,8 +1,10 @@
 package me.spongycat.spongify.recipes;
 
+import me.spongycat.spongify.Spongify;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.RecipeChoice;
@@ -26,11 +28,11 @@ public class RottenFleshToLeatherRecipe {
         SuperRottenFlesh.setItemMeta(RottenMeta);
 
 
-        ShapedRecipe SuperRottenFleshRecipe = new ShapedRecipe(SuperRottenFlesh);
+        ShapedRecipe SuperRottenFleshRecipe = new ShapedRecipe(new NamespacedKey(Spongify.plugin, "sRottenFlesh"),SuperRottenFlesh);
         SuperRottenFleshRecipe.shape("X X", " X ", "X X");
         SuperRottenFleshRecipe.setIngredient('X', Material.ROTTEN_FLESH);
 
-        ShapedRecipe leatherRecipe = new ShapedRecipe(leather);
+        ShapedRecipe leatherRecipe = new ShapedRecipe(new NamespacedKey(Spongify.plugin, "leather") ,leather);
         leatherRecipe.shape("XX", "XX");
         leatherRecipe.setIngredient('X', new RecipeChoice.ExactChoice(SuperRottenFlesh));
 
