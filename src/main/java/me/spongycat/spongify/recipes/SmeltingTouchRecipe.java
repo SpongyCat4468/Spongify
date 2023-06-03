@@ -135,6 +135,33 @@ public class SmeltingTouchRecipe implements Listener {
                     // Register the recipe with the server
                     Bukkit.getServer().addRecipe(recipe);
 
+                } else if (items[0].getType() == Material.NETHERITE_HOE && items[1].isSimilar(ore) && items[1].getAmount() == 1) {
+                    ItemStack result = items[0];
+                    ItemMeta meta3 = items[0].getItemMeta();
+                    ArrayList<String> lore3 = new ArrayList<>();
+                    lore3.add(ChatColor.GOLD + "Smelting Touch I");
+                    meta3.setLore(lore3);
+                    result.setItemMeta(meta3);
+                    result.addUnsafeEnchantment(smeltingTouchEnchantment, 1);
+
+                    // Set the durability of the resulting item to match the durability of the input pickaxe
+                    int durability = (int) ((double) items[0].getDurability() / items[0].getType().getMaxDurability() * result.getType().getMaxDurability());
+                    result.setDurability((short) durability);
+                    ItemStack first = items[0];
+                    ItemStack second = items[1];
+                    RecipeChoice firstChoice = new RecipeChoice.ExactChoice(first);
+                    RecipeChoice secondChoice = new RecipeChoice.ExactChoice(second);
+                    if (!first.containsEnchantment(smeltingTouchEnchantment)) {
+                        int count = items[1].getAmount();
+                        items[1].setAmount(count - 1);
+                    }
+
+                    // Create the custom recipe using the result item and a unique key
+                    SmithingRecipe recipe = new SmithingRecipe(key, result, firstChoice, secondChoice);
+
+                    // Register the recipe with the server
+                    Bukkit.getServer().addRecipe(recipe);
+
                 }
             }
         }

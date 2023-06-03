@@ -1,6 +1,5 @@
 package me.spongycat.spongify.commands;
 
-import jdk.dynalink.support.ChainedCallSite;
 import me.spongycat.spongify.Spongify;
 import me.spongycat.spongify.items.VillagerDiscountItem;
 import me.spongycat.spongify.recipes.AutoReplantRecipe;
@@ -48,54 +47,54 @@ public class SpongifyCommand implements CommandExecutor {
                     p.sendMessage(ChatColor.GREEN + "Spongify is on version " + ChatColor.LIGHT_PURPLE + Spongify.version);
                 } else if (Objects.equals(args[0], "give")) {
                     if (p.hasPermission("spongify.give")) {
-                        ItemStack air = new ItemStack(Material.AIR);
+                        Material air = Material.AIR;
                         PlayerInventory pInventory = p.getInventory();
                         if (Objects.equals(args[1], "SmeltingTouch")) {
-                            if (pInventory.getItemInMainHand().equals(air)) {
+                            if (pInventory.getItemInMainHand().getType() == air) {
                                 pInventory.setItemInMainHand(SmeltingTouchRecipe.getSmeltingTouchBook());
-                                p.sendMessage(ChatColor.GREEN + "You have received Smelting Touch I book");
+                                p.sendMessage(ChatColor.GREEN + "You have received a " + ChatColor.YELLOW + "Smelting Touch I Book");
                             } else {
                                 p.sendMessage(ChatColor.RED + "You have to empty your hand before performing this command!");
                             }
                         } else if (Objects.equals(args[1], "AutoReplant")) {
-                            if (pInventory.getItemInMainHand().equals(air)) {
+                            if (pInventory.getItemInMainHand().getType() == air) {
                                 pInventory.setItemInMainHand(AutoReplantRecipe.getHoe());
-                                p.sendMessage(ChatColor.GREEN + "You have received Auto Replant Hoe");
+                                p.sendMessage(ChatColor.GREEN + "You have received a" + ChatColor.YELLOW + " Auto Replant Hoe");
                             } else {
                                 p.sendMessage(ChatColor.RED + "You have to empty your hand before performing this command!");
                             }
                         } else if (Objects.equals(args[1], "Bundle")) {
-                            if (pInventory.getItemInMainHand().equals(air)) {
+                            if (pInventory.getItemInMainHand().getType() == air) {
                                 pInventory.setItemInMainHand(new ItemStack(Material.BUNDLE));
-                                p.sendMessage(ChatColor.GREEN + "You have received a bundle!");
-                            } else {
-                                p.sendMessage(ChatColor.RED + "You have to empty your hand before performing this command!");
-                            }
-                        } else if (Objects.equals(args[1], "ZombifyToken")) {
-                            if (pInventory.getItemInMainHand().equals(air)) {
-                                pInventory.setItemInMainHand(VillagerDiscountItem.getZombifyToken());
-                                p.sendMessage(ChatColor.GREEN + "You have received a Zombify Token!");
+                                p.sendMessage(ChatColor.GREEN + "You have received a" + ChatColor.YELLOW + " Bundle!");
                             } else {
                                 p.sendMessage(ChatColor.RED + "You have to empty your hand before performing this command!");
                             }
                         } else if (Objects.equals(args[1], "ZombifyWand")) {
-                            if (pInventory.getItemInMainHand().equals(air)) {
+                            if (pInventory.getItemInMainHand().getType() == air) {
                                 pInventory.setItemInMainHand(VillagerDiscountItem.getZombifyWand());
-                                p.sendMessage(ChatColor.GREEN + "You have received a Zombify Wand!");
+                                p.sendMessage(ChatColor.GREEN + "You have received an" + ChatColor.YELLOW + " Zombify Wand!");
+                            } else {
+                                p.sendMessage(ChatColor.RED + "You have to empty your hand before performing this command!");
+                            }
+                        } else if (Objects.equals(args[1], "ZombifyToken")) {
+                            if (pInventory.getItemInMainHand().getType() == air) {
+                                pInventory.setItemInMainHand(VillagerDiscountItem.getZombifyToken());
+                                p.sendMessage(ChatColor.GREEN + "You have received a" + ChatColor.YELLOW + " Zombify Token!");
                             } else {
                                 p.sendMessage(ChatColor.RED + "You have to empty your hand before performing this command!");
                             }
                         } else if (Objects.equals(args[1], "CureWand")) {
-                            if (pInventory.getItemInMainHand().equals(air)) {
+                            if (pInventory.getItemInMainHand().getType() == air) {
                                 pInventory.setItemInMainHand(VillagerDiscountItem.getCureWand());
-                                p.sendMessage(ChatColor.GREEN + "You have received a Cure Wand!");
+                                p.sendMessage(ChatColor.GREEN + "You have received a" + ChatColor.YELLOW + " Cure Wand!");
                             } else {
                                 p.sendMessage(ChatColor.RED + "You have to empty your hand before performing this command!");
                             }
                         } else if (Objects.equals(args[1], "CureToken")) {
-                            if (pInventory.getItemInMainHand().equals(air)) {
+                            if (pInventory.getItemInMainHand().getType() == air) {
                                 pInventory.setItemInMainHand(VillagerDiscountItem.getCureToken());
-                                p.sendMessage(ChatColor.GREEN + "You have received a Cure Token!");
+                                p.sendMessage(ChatColor.GREEN + "You have received a" + ChatColor.YELLOW + " Cure Token!");
                             } else {
                                 p.sendMessage(ChatColor.RED + "You have to empty your hand before performing this command!");
                             }

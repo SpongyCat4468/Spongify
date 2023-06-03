@@ -21,7 +21,7 @@ public final class Spongify extends JavaPlugin {
     public static me.spongycat.spongify.Spongify plugin;
     public static me.spongycat.spongify.enchants.AutoReplantEnchantment autoReplantEnchantment;
     public static me.spongycat.spongify.enchants.SmeltingTouchEnchantment smeltingTouchEnchantment;
-    public static final String version = "1.1.3";
+    public static final String version = "1.1.4";
 
     @Override
     public void onEnable() {
@@ -95,7 +95,7 @@ public final class Spongify extends JavaPlugin {
         }
 
         // Auto Tab Complete
-        this.getServer().getPluginManager().registerEvents(new TabCompleteListener(), this);
+        getCommand("spongify").setTabCompleter(new TabCompleteListener());
 
     }
 
