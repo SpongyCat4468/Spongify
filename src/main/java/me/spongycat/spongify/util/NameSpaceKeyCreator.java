@@ -1,5 +1,6 @@
-package me.spongycat.spongify;
+package me.spongycat.spongify.util;
 
+import me.spongycat.spongify.Spongify;
 import org.bukkit.NamespacedKey;
 
 public class NameSpaceKeyCreator {

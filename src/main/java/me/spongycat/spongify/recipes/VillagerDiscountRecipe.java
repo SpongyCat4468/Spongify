@@ -1,6 +1,6 @@
 package me.spongycat.spongify.recipes;
 
-import me.spongycat.spongify.NameSpaceKeyCreator;
+import me.spongycat.spongify.util.NameSpaceKeyCreator;
 import me.spongycat.spongify.items.VillagerDiscountItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
