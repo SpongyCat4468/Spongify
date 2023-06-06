@@ -24,7 +24,7 @@ public final class Spongify extends JavaPlugin {
     public static me.spongycat.spongify.Spongify plugin;
     public static me.spongycat.spongify.enchants.AutoReplantEnchantment autoReplantEnchantment;
     public static me.spongycat.spongify.enchants.SmeltingTouchEnchantment smeltingTouchEnchantment;
-    public static final String version = "1.1.4";
+    public static final String version = "1.2.0";
 
     @Override
     public void onEnable() {
@@ -100,7 +100,7 @@ public final class Spongify extends JavaPlugin {
         // Auto Tab Complete
         getCommand("spongify").setTabCompleter(new TabCompleteListener());
 
-        // Prevent Zamorack (redstone) from being placing down
+        // Prevent Zamorack Hilt (redstone) from being placing down
         getServer().getPluginManager().registerEvents(new BlockPlaceListener(), this);
 
         // God Sword Recipe

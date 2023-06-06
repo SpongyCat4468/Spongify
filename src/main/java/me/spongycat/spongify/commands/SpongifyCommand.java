@@ -122,7 +122,7 @@ public class SpongifyCommand implements CommandExecutor {
                             }
                         } else if (Objects.equals(args[1], "ZamorackHilt")) {
                             if (pInventory.getItemInMainHand().getType() == air) {
-                                pInventory.setItemInMainHand(GodSwordItem.getZamorackHilt());
+                                pInventory.setItemInMainHand(GodSwordItem.getZamorakHilt());
                                 p.sendMessage(ChatColor.GREEN + "You have received a" + ChatColor.YELLOW + " Zamorack Hilt!");
                             } else {
                                 p.sendMessage(ChatColor.RED + "You have to empty your hand before performing this command!");
@@ -157,7 +157,7 @@ public class SpongifyCommand implements CommandExecutor {
                             }
                         } else if (Objects.equals(args[1], "ZamorakGodSword")) {
                             if (pInventory.getItemInMainHand().getType() == air) {
-                                pInventory.setItemInMainHand(GodSwordItem.getZamorackGodSword());
+                                pInventory.setItemInMainHand(GodSwordItem.getZamorakGodSword());
                                 p.sendMessage(ChatColor.GREEN + "You have received a" + ChatColor.YELLOW + " Zamorak God Sword!");
                             } else {
                                 p.sendMessage(ChatColor.RED + "You have to empty your hand before performing this command!");

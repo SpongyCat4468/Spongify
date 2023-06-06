@@ -12,17 +12,17 @@ public class GodSwordRecipe {
         ItemStack SaradominHilt = GodSwordItem.getSaradominHilt();
         ItemStack GuthixHilt = GodSwordItem.getGuthixHilt();
         ItemStack ArmadylHilt = GodSwordItem.getArmadylHilt();
-        ItemStack ZamorackHilt = GodSwordItem.getZamorackHilt();
+        ItemStack ZamorakHilt = GodSwordItem.getZamorakHilt();
         ItemStack GodSwordBlade = GodSwordItem.getGodSwordBlade();
         ItemStack SaradominGodSword = GodSwordItem.getSaradominGodSword();
         ItemStack GuthixGodSword = GodSwordItem.getGuthixGodSword();
         ItemStack ArmadylGodSword = GodSwordItem.getArmadylGodSword();
-        ItemStack ZamorackGodSword = GodSwordItem.getZamorackGodSword();
+        ItemStack ZamorakGodSword = GodSwordItem.getZamorakGodSword();
 
         RecipeChoice.ExactChoice SaradominChoice = new RecipeChoice.ExactChoice(SaradominHilt);
         RecipeChoice.ExactChoice GuthixChoice = new RecipeChoice.ExactChoice(GuthixHilt);
         RecipeChoice.ExactChoice ArmadylChoice = new RecipeChoice.ExactChoice(ArmadylHilt);
-        RecipeChoice.ExactChoice ZamorackChoice = new RecipeChoice.ExactChoice(ZamorackHilt);
+        RecipeChoice.ExactChoice ZamorackChoice = new RecipeChoice.ExactChoice(ZamorakHilt);
         RecipeChoice.ExactChoice BladeChoice = new RecipeChoice.ExactChoice(GodSwordBlade);
 
         ShapedRecipe SaradominRecipe = new ShapedRecipe(NameSpaceKeyCreator.recipeKey("Saradomin"), SaradominGodSword);
@@ -40,7 +40,7 @@ public class GodSwordRecipe {
         ArmadylRecipe.setIngredient('X', BladeChoice);
         ArmadylRecipe.setIngredient('Y', ArmadylChoice);
 
-        ShapedRecipe ZamorakRecipe = new ShapedRecipe(NameSpaceKeyCreator.recipeKey("Zamorack"), ZamorackGodSword);
+        ShapedRecipe ZamorakRecipe = new ShapedRecipe(NameSpaceKeyCreator.recipeKey("Zamorak"), ZamorakGodSword);
         ZamorakRecipe.shape(" X ", " X ", " Y ");
         ZamorakRecipe.setIngredient('X', BladeChoice);
         ZamorakRecipe.setIngredient('Y', ZamorackChoice);

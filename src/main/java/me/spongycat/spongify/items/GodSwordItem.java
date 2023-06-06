@@ -40,11 +40,11 @@ public class GodSwordItem {
         return Armadyl_Hilt;
     }
 
-    public static ItemStack getZamorackHilt() {
+    public static ItemStack getZamorakHilt() {
         ItemStack Zamorack_Hilt = new ItemStack(Material.REDSTONE);
 
         ItemMeta ZamorackMeta = Zamorack_Hilt.getItemMeta();
-        ZamorackMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "Zamorack Hilt");
+        ZamorackMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "Zamorak Hilt");
         Zamorack_Hilt.setItemMeta(ZamorackMeta);
         Zamorack_Hilt.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 3);
 
@@ -103,7 +103,7 @@ public class GodSwordItem {
         return Armadyl_God_Sword;
     }
 
-    public static ItemStack getZamorackGodSword() {
+    public static ItemStack getZamorakGodSword() {
         ItemStack Zamorak_God_Sword = new ItemStack(Material.NETHERITE_SWORD);
 
         ItemMeta ZMeta = Zamorak_God_Sword.getItemMeta();
