@@ -1,6 +1,7 @@
 package me.spongycat.spongify.commands;
 
 import me.spongycat.spongify.Spongify;
+import me.spongycat.spongify.items.GodSwordItem;
 import me.spongycat.spongify.items.VillagerDiscountItem;
 import me.spongycat.spongify.recipes.AutoReplantRecipe;
 import me.spongycat.spongify.recipes.SmeltingTouchRecipe;
@@ -98,12 +99,75 @@ public class SpongifyCommand implements CommandExecutor {
                             } else {
                                 p.sendMessage(ChatColor.RED + "You have to empty your hand before performing this command!");
                             }
+                        } else if (Objects.equals(args[1], "SaradominHilt")) {
+                            if (pInventory.getItemInMainHand().getType() == air) {
+                                pInventory.setItemInMainHand(GodSwordItem.getSaradominHilt());
+                                p.sendMessage(ChatColor.GREEN + "You have received a" + ChatColor.YELLOW + " Saradomin Hilt!");
+                            } else {
+                                p.sendMessage(ChatColor.RED + "You have to empty your hand before performing this command!");
+                            }
+                        } else if (Objects.equals(args[1], "GuthixHilt")) {
+                            if (pInventory.getItemInMainHand().getType() == air) {
+                                pInventory.setItemInMainHand(GodSwordItem.getGuthixHilt());
+                                p.sendMessage(ChatColor.GREEN + "You have received a" + ChatColor.YELLOW + " Guthix Hilt!");
+                            } else {
+                                p.sendMessage(ChatColor.RED + "You have to empty your hand before performing this command!");
+                            }
+                        } else if (Objects.equals(args[1], "ArmadylHilt")) {
+                            if (pInventory.getItemInMainHand().getType() == air) {
+                                pInventory.setItemInMainHand(GodSwordItem.getArmadylHilt());
+                                p.sendMessage(ChatColor.GREEN + "You have received a" + ChatColor.YELLOW + " Armadyl Hilt!");
+                            } else {
+                                p.sendMessage(ChatColor.RED + "You have to empty your hand before performing this command!");
+                            }
+                        } else if (Objects.equals(args[1], "ZamorackHilt")) {
+                            if (pInventory.getItemInMainHand().getType() == air) {
+                                pInventory.setItemInMainHand(GodSwordItem.getZamorackHilt());
+                                p.sendMessage(ChatColor.GREEN + "You have received a" + ChatColor.YELLOW + " Zamorack Hilt!");
+                            } else {
+                                p.sendMessage(ChatColor.RED + "You have to empty your hand before performing this command!");
+                            }
+                        } else if (Objects.equals(args[1], "GodSwordBlade")) {
+                            if (pInventory.getItemInMainHand().getType() == air) {
+                                pInventory.setItemInMainHand(GodSwordItem.getGodSwordBlade());
+                                p.sendMessage(ChatColor.GREEN + "You have received a" + ChatColor.YELLOW + " God Sword Blade!");
+                            } else {
+                                p.sendMessage(ChatColor.RED + "You have to empty your hand before performing this command!");
+                            }
+                        } else if (Objects.equals(args[1], "SaradominGodSword")) {
+                            if (pInventory.getItemInMainHand().getType() == air) {
+                                pInventory.setItemInMainHand(GodSwordItem.getSaradominGodSword());
+                                p.sendMessage(ChatColor.GREEN + "You have received a" + ChatColor.YELLOW + " Saradomin God Sword!");
+                            } else {
+                                p.sendMessage(ChatColor.RED + "You have to empty your hand before performing this command!");
+                            }
+                        } else if (Objects.equals(args[1], "GuthixGodSword")) {
+                            if (pInventory.getItemInMainHand().getType() == air) {
+                                pInventory.setItemInMainHand(GodSwordItem.getGuthixGodSword());
+                                p.sendMessage(ChatColor.GREEN + "You have received a" + ChatColor.YELLOW + " Guthix God Sword!");
+                            } else {
+                                p.sendMessage(ChatColor.RED + "You have to empty your hand before performing this command!");
+                            }
+                        } else if (Objects.equals(args[1], "ArmadylGodSword")) {
+                            if (pInventory.getItemInMainHand().getType() == air) {
+                                pInventory.setItemInMainHand(GodSwordItem.getArmadylGodSword());
+                                p.sendMessage(ChatColor.GREEN + "You have received a" + ChatColor.YELLOW + " Armadyl God Sword!");
+                            } else {
+                                p.sendMessage(ChatColor.RED + "You have to empty your hand before performing this command!");
+                            }
+                        } else if (Objects.equals(args[1], "ZamorakGodSword")) {
+                            if (pInventory.getItemInMainHand().getType() == air) {
+                                pInventory.setItemInMainHand(GodSwordItem.getZamorakGodSword());
+                                p.sendMessage(ChatColor.GREEN + "You have received a" + ChatColor.YELLOW + " Zamorak God Sword!");
+                            } else {
+                                p.sendMessage(ChatColor.RED + "You have to empty your hand before performing this command!");
+                            }
                         }
                     } else {
                         p.sendMessage(ChatColor.RED + "You don't have permission spongify.give to perform this command!");
                     }
                 } else if (Objects.equals(args[0], "about")) {
-                    p.sendMessage(ChatColor.AQUA + "Author: SpongyCat\n" + ChatColor.GOLD + "Discord: SpongyCat#1562\n" + ChatColor.LIGHT_PURPLE + "Enjoy This Plugin!");
+                    p.sendMessage(ChatColor.AQUA + "Author: SpongyCat\n" + ChatColor.GOLD + "Discord: SpongyCat#1562\n" + ChatColor.GREEN + "Github Repo: https://github.com/SpongyCat4468/Spongify\n" + ChatColor.LIGHT_PURPLE + "Enjoy This Plugin!");
                 }
             } else {
                 p.sendMessage(ChatColor.RED + "Usage of /spongify is " + ChatColor.BLUE + "/spongify lore, /spongify version, /spongify about, /spongify give");
