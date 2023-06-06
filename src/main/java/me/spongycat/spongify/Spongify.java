@@ -3,12 +3,15 @@ package me.spongycat.spongify;
 import me.spongycat.spongify.commands.SpongifyCommand;
 import me.spongycat.spongify.enchants.AutoReplantEnchantment;
 import me.spongycat.spongify.enchants.SmeltingTouchEnchantment;
+import me.spongycat.spongify.items.GodSwordItem;
 import me.spongycat.spongify.listeners.ArmorStandPlaceListener;
+import me.spongycat.spongify.listeners.BlockPlaceListener;
 import me.spongycat.spongify.listeners.TabCompleteListener;
 import me.spongycat.spongify.recipes.*;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.plugin.SimplePluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import me.spongycat.spongify.listeners.TillMyceliumListener;
 
@@ -97,6 +100,11 @@ public final class Spongify extends JavaPlugin {
         // Auto Tab Complete
         getCommand("spongify").setTabCompleter(new TabCompleteListener());
 
+        // Prevent Zamorack (redstone) from being placing down
+        getServer().getPluginManager().registerEvents(new BlockPlaceListener(), this);
+
+        // God Sword Recipe
+        GodSwordRecipe.registerRecipe();
     }
 
     @Override

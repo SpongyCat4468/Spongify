@@ -103,7 +103,7 @@ public class GodSwordItem {
         return Armadyl_God_Sword;
     }
 
-    public static ItemStack getZamorakGodSword() {
+    public static ItemStack getZamorackGodSword() {
         ItemStack Zamorak_God_Sword = new ItemStack(Material.NETHERITE_SWORD);
 
         ItemMeta ZMeta = Zamorak_God_Sword.getItemMeta();

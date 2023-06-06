@@ -157,7 +157,7 @@ public class SpongifyCommand implements CommandExecutor {
                             }
                         } else if (Objects.equals(args[1], "ZamorakGodSword")) {
                             if (pInventory.getItemInMainHand().getType() == air) {
-                                pInventory.setItemInMainHand(GodSwordItem.getZamorakGodSword());
+                                pInventory.setItemInMainHand(GodSwordItem.getZamorackGodSword());
                                 p.sendMessage(ChatColor.GREEN + "You have received a" + ChatColor.YELLOW + " Zamorak God Sword!");
                             } else {
                                 p.sendMessage(ChatColor.RED + "You have to empty your hand before performing this command!");

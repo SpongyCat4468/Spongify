@@ -25,6 +25,15 @@ public class TabCompleteListener implements TabCompleter{
             completions.add("ZombifyWand");
             completions.add("CureWand");
             completions.add("CureToken");
+            completions.add("SaradominHilt");
+            completions.add("GuthixHilt");
+            completions.add("ArmadylHilt");
+            completions.add("ZamorackHilt");
+            completions.add("GodSwordBlade");
+            completions.add("SaradominGodSword");
+            completions.add("GuthixGodSword");
+            completions.add("ArmadylGodSword");
+            completions.add("ZamorakGodSword");
         }
         return completions;
     }
