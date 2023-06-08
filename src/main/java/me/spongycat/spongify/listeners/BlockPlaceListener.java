@@ -12,7 +12,7 @@ public class BlockPlaceListener implements Listener {
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent e) {
         Player p = e.getPlayer();
-        if (p.getInventory().getItemInMainHand().isSimilar(GodSwordItem.getZamorakHilt())) {
+        if (p.getInventory().getItemInMainHand().isSimilar(GodSwordItem.getZamorakHilt()) || p.getInventory().getItemInOffHand().isSimilar(GodSwordItem.getZamorakHilt())) {
             e.setCancelled(true);
             p.sendMessage(ChatColor.RED + "You cannot place down a hilt!");
         }

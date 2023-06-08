@@ -40,7 +40,6 @@ public final class Spongify extends JavaPlugin {
             getServer().getLogger().log(Level.INFO, "[Spongify] Armor Stand with Arms Enabled");
         }
 
-
         // Config
         getConfig().options().copyDefaults();
         saveDefaultConfig();

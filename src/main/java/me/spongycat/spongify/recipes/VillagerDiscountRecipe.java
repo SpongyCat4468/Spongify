@@ -32,25 +32,25 @@ public class VillagerDiscountRecipe {
         ZombifyToken.setAmount(10);
         CureToken.setAmount(10);
 
-        ShapedRecipe zWandRecipe = new ShapedRecipe(NameSpaceKeyCreator.recipeKey("zWand"),ZombifyWand);
+        ShapedRecipe zWandRecipe = new ShapedRecipe(NameSpaceKeyCreator.getRecipeKey("zWand"),ZombifyWand);
         zWandRecipe.shape("HXH", "ZXZ", " Y ");
         zWandRecipe.setIngredient('X', Material.EMERALD_BLOCK);
         zWandRecipe.setIngredient('Y', Material.STICK);
         zWandRecipe.setIngredient('Z', Material.ZOMBIE_SPAWN_EGG);
         zWandRecipe.setIngredient('H', Material.DIAMOND_SWORD);
 
-        ShapedRecipe zTokenRecipe = new ShapedRecipe(NameSpaceKeyCreator.recipeKey("zToken"), ZombifyToken);
+        ShapedRecipe zTokenRecipe = new ShapedRecipe(NameSpaceKeyCreator.getRecipeKey("zToken"), ZombifyToken);
         zTokenRecipe.shape("XY");
         zTokenRecipe.setIngredient('X', Material.DIAMOND_SWORD);
         zTokenRecipe.setIngredient('Y', strengthPotion.getData());
 
-        ShapedRecipe cWandRecipe = new ShapedRecipe(NameSpaceKeyCreator.recipeKey("cWand"), CureWand);
+        ShapedRecipe cWandRecipe = new ShapedRecipe(NameSpaceKeyCreator.getRecipeKey("cWand"), CureWand);
         cWandRecipe.shape(" X ", " Y ", " Z ");
         cWandRecipe.setIngredient('X', Material.VILLAGER_SPAWN_EGG);
         cWandRecipe.setIngredient('Y', Material.HEART_OF_THE_SEA);
         cWandRecipe.setIngredient('Z', Material.STICK);
 
-        ShapedRecipe cTokenRecipe = new ShapedRecipe(NameSpaceKeyCreator.recipeKey("cToken"), CureToken);
+        ShapedRecipe cTokenRecipe = new ShapedRecipe(NameSpaceKeyCreator.getRecipeKey("cToken"), CureToken);
         cTokenRecipe.shape("XY");
         cTokenRecipe.setIngredient('X', splashWeaknessPotion.getData());
         cTokenRecipe.setIngredient('Y', Material.GOLDEN_APPLE);

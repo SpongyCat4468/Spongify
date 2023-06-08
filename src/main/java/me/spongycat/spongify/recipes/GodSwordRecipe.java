@@ -25,22 +25,22 @@ public class GodSwordRecipe {
         RecipeChoice.ExactChoice ZamorackChoice = new RecipeChoice.ExactChoice(ZamorakHilt);
         RecipeChoice.ExactChoice BladeChoice = new RecipeChoice.ExactChoice(GodSwordBlade);
 
-        ShapedRecipe SaradominRecipe = new ShapedRecipe(NameSpaceKeyCreator.recipeKey("Saradomin"), SaradominGodSword);
+        ShapedRecipe SaradominRecipe = new ShapedRecipe(NameSpaceKeyCreator.getRecipeKey("Saradomin"), SaradominGodSword);
         SaradominRecipe.shape(" X ", " X ", " Y ");
         SaradominRecipe.setIngredient('X', BladeChoice);
         SaradominRecipe.setIngredient('Y', SaradominChoice);
 
-        ShapedRecipe GuthixRecipe = new ShapedRecipe(NameSpaceKeyCreator.recipeKey("Guthix"), GuthixGodSword);
+        ShapedRecipe GuthixRecipe = new ShapedRecipe(NameSpaceKeyCreator.getRecipeKey("Guthix"), GuthixGodSword);
         GuthixRecipe.shape(" X ", " X ", " Y ");
         GuthixRecipe.setIngredient('X', BladeChoice);
         GuthixRecipe.setIngredient('Y', GuthixChoice);
 
-        ShapedRecipe ArmadylRecipe = new ShapedRecipe(NameSpaceKeyCreator.recipeKey("Armadyl"), ArmadylGodSword);
+        ShapedRecipe ArmadylRecipe = new ShapedRecipe(NameSpaceKeyCreator.getRecipeKey("Armadyl"), ArmadylGodSword);
         ArmadylRecipe.shape(" X ", " X ", " Y ");
         ArmadylRecipe.setIngredient('X', BladeChoice);
         ArmadylRecipe.setIngredient('Y', ArmadylChoice);
 
-        ShapedRecipe ZamorakRecipe = new ShapedRecipe(NameSpaceKeyCreator.recipeKey("Zamorak"), ZamorakGodSword);
+        ShapedRecipe ZamorakRecipe = new ShapedRecipe(NameSpaceKeyCreator.getRecipeKey("Zamorak"), ZamorakGodSword);
         ZamorakRecipe.shape(" X ", " X ", " Y ");
         ZamorakRecipe.setIngredient('X', BladeChoice);
         ZamorakRecipe.setIngredient('Y', ZamorackChoice);

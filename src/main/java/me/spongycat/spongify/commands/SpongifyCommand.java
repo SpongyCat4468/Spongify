@@ -5,11 +5,14 @@ import me.spongycat.spongify.items.GodSwordItem;
 import me.spongycat.spongify.items.VillagerDiscountItem;
 import me.spongycat.spongify.recipes.AutoReplantRecipe;
 import me.spongycat.spongify.recipes.SmeltingTouchRecipe;
+import me.spongycat.spongify.util.Give;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -171,6 +174,30 @@ public class SpongifyCommand implements CommandExecutor {
                 }
             } else {
                 p.sendMessage(ChatColor.RED + "Usage of /spongify is " + ChatColor.BLUE + "/spongify lore, /spongify version, /spongify about, /spongify give");
+            }
+        } else if (Objects.equals(args[0], "consolegive") && args[2] != null && args[3] != null && commandSender instanceof ConsoleCommandSender) {
+            Player p = Bukkit.getPlayerExact(args[2]);
+            int amount = Integer.valueOf(args[3]);
+            if (p != null) {
+                if (Objects.equals(args[1], "SaradominHilt")) {
+                    Give.givePlayer(p, GodSwordItem.getSaradominHilt(), amount, "Saradomin Hilt");
+                } else if (Objects.equals(args[1], "GuthixHilt")) {
+                    Give.givePlayer(p, GodSwordItem.getGuthixHilt(), amount, "Guthix Hilt");
+                } else if (Objects.equals(args[1], "ArmadylHilt")) {
+                    Give.givePlayer(p, GodSwordItem.getArmadylHilt(), amount, "Armadyl Hilt");
+                } else if (Objects.equals(args[1], "ZamorackHilt")) {
+                    Give.givePlayer(p, GodSwordItem.getZamorakHilt(), amount, "Zamorack Hilt");
+                } else if (Objects.equals(args[1], "GodSwordBlade")) {
+                    Give.givePlayer(p, GodSwordItem.getGodSwordBlade(), amount, "God Sword Blade");
+                } else if (Objects.equals(args[1], "SaradominGodSword")) {
+                    Give.givePlayer(p, GodSwordItem.getSaradominGodSword(), amount, "Saradomin God Sword");
+                } else if (Objects.equals(args[1], "GuthixGodSword")) {
+                    Give.givePlayer(p, GodSwordItem.getGuthixGodSword(), amount, "Guthix God Sword");
+                } else if (Objects.equals(args[1], "ArmadylGodSword")) {
+                    Give.givePlayer(p, GodSwordItem.getArmadylGodSword(), amount, "Armadyl God Sword");
+                } else if (Objects.equals(args[1], "ZamorakGodSword")) {
+                    Give.givePlayer(p, GodSwordItem.getZamorakGodSword(), amount, "Zamorak God Sword");
+                }
             }
         }
         return true;
