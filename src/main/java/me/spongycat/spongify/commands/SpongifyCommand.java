@@ -2,7 +2,6 @@ package me.spongycat.spongify.commands;
 
 import me.spongycat.spongify.Spongify;
 import me.spongycat.spongify.items.GodSwordItem;
-import me.spongycat.spongify.items.VillagerDiscountItem;
 import me.spongycat.spongify.recipes.AutoReplantRecipe;
 import me.spongycat.spongify.recipes.SmeltingTouchRecipe;
 import me.spongycat.spongify.util.Give;
@@ -71,34 +70,6 @@ public class SpongifyCommand implements CommandExecutor {
                             if (pInventory.getItemInMainHand().getType() == air) {
                                 pInventory.setItemInMainHand(new ItemStack(Material.BUNDLE));
                                 p.sendMessage(ChatColor.GREEN + "You have received a" + ChatColor.YELLOW + " Bundle!");
-                            } else {
-                                p.sendMessage(ChatColor.RED + "You have to empty your hand before performing this command!");
-                            }
-                        } else if (Objects.equals(args[1], "ZombifyWand")) {
-                            if (pInventory.getItemInMainHand().getType() == air) {
-                                pInventory.setItemInMainHand(VillagerDiscountItem.getZombifyWand());
-                                p.sendMessage(ChatColor.GREEN + "You have received an" + ChatColor.YELLOW + " Zombify Wand!");
-                            } else {
-                                p.sendMessage(ChatColor.RED + "You have to empty your hand before performing this command!");
-                            }
-                        } else if (Objects.equals(args[1], "ZombifyToken")) {
-                            if (pInventory.getItemInMainHand().getType() == air) {
-                                pInventory.setItemInMainHand(VillagerDiscountItem.getZombifyToken());
-                                p.sendMessage(ChatColor.GREEN + "You have received a" + ChatColor.YELLOW + " Zombify Token!");
-                            } else {
-                                p.sendMessage(ChatColor.RED + "You have to empty your hand before performing this command!");
-                            }
-                        } else if (Objects.equals(args[1], "CureWand")) {
-                            if (pInventory.getItemInMainHand().getType() == air) {
-                                pInventory.setItemInMainHand(VillagerDiscountItem.getCureWand());
-                                p.sendMessage(ChatColor.GREEN + "You have received a" + ChatColor.YELLOW + " Cure Wand!");
-                            } else {
-                                p.sendMessage(ChatColor.RED + "You have to empty your hand before performing this command!");
-                            }
-                        } else if (Objects.equals(args[1], "CureToken")) {
-                            if (pInventory.getItemInMainHand().getType() == air) {
-                                pInventory.setItemInMainHand(VillagerDiscountItem.getCureToken());
-                                p.sendMessage(ChatColor.GREEN + "You have received a" + ChatColor.YELLOW + " Cure Token!");
                             } else {
                                 p.sendMessage(ChatColor.RED + "You have to empty your hand before performing this command!");
                             }

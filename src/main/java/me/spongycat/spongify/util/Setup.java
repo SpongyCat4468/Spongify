@@ -91,8 +91,5 @@ public class Setup {
 
         // God Sword Recipe
         GodSwordRecipe.registerRecipe();
-
-        // Villager Discount
-        plugin.getServer().getPluginManager().registerEvents(new VillagerDiscountListener(), plugin);
     }
 }

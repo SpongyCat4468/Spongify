@@ -1,7 +1,7 @@
 name: Spongify
 version: '${project.version}'
 main: me.spongycat.spongify.Spongify
-api-version: 1.19
+api-version: 1.20
 load: STARTUP
 authors: [SpongyCat]
 description: Spongify Your World!
