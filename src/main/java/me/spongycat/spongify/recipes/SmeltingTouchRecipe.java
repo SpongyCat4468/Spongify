@@ -166,4 +166,17 @@ public class SmeltingTouchRecipe implements Listener {
             }
         }
     }
+
+    public static ItemStack getDiamondCore() {
+        ItemStack superDiamond = new ItemStack(Material.DIAMOND_BLOCK, 1);
+        superDiamond.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 10);
+        ItemMeta meta3 = superDiamond.getItemMeta();
+        ArrayList<String> lore3 = new ArrayList<>();
+        lore3.add(ChatColor.GOLD + "Diamond core combined with totem power");
+        meta3.setLore(lore3);
+        meta3.setDisplayName(ChatColor.LIGHT_PURPLE + "Diamond Core");
+        superDiamond.setItemMeta(meta3);
+
+        return superDiamond;
+    }
 }

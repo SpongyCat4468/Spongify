@@ -21,10 +21,6 @@ public class TabCompleteListener implements TabCompleter{
             completions.add("SmeltingTouch");
             completions.add("AutoReplant");
             completions.add("Bundle");
-            completions.add("ZombifyToken");
-            completions.add("ZombifyWand");
-            completions.add("CureWand");
-            completions.add("CureToken");
             completions.add("SaradominHilt");
             completions.add("GuthixHilt");
             completions.add("ArmadylHilt");
@@ -34,6 +30,8 @@ public class TabCompleteListener implements TabCompleter{
             completions.add("GuthixGodSword");
             completions.add("ArmadylGodSword");
             completions.add("ZamorakGodSword");
+            completions.add("DiamondCore");
+            completions.add("SuperGoldenCarrot");
         }
         return completions;
     }

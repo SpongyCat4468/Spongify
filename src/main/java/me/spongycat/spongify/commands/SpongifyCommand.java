@@ -136,6 +136,20 @@ public class SpongifyCommand implements CommandExecutor {
                             } else {
                                 p.sendMessage(ChatColor.RED + "You have to empty your hand before performing this command!");
                             }
+                        } else if (Objects.equals(args[1], "DiamondCore")) {
+                            if (pInventory.getItemInMainHand().getType() == air) {
+                                pInventory.setItemInMainHand(SmeltingTouchRecipe.getDiamondCore());
+                                p.sendMessage(ChatColor.GREEN + "You have received a" + ChatColor.YELLOW + " Diamond Core!");
+                            } else {
+                                p.sendMessage(ChatColor.RED + "You have to empty your hand before performing this command!");
+                            }
+                        } else if (Objects.equals(args[1], "SuperGoldenCarrot")) {
+                            if (pInventory.getItemInMainHand().getType() == air) {
+                                pInventory.setItemInMainHand(AutoReplantRecipe.getCarrot());
+                                p.sendMessage(ChatColor.GREEN + "You have received a" + ChatColor.YELLOW + " Super Golden Carrot!");
+                            } else {
+                                p.sendMessage(ChatColor.RED + "You have to empty your hand before performing this command!");
+                            }
                         }
                     } else {
                         p.sendMessage(ChatColor.RED + "You don't have permission spongify.give to perform this command!");

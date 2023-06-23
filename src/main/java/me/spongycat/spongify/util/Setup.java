@@ -1,13 +1,19 @@
 package me.spongycat.spongify.util;
 
-import me.spongycat.spongify.Spongify;
 import me.spongycat.spongify.commands.SpongifyCommand;
 import me.spongycat.spongify.enchants.AutoReplantEnchantment;
 import me.spongycat.spongify.enchants.SmeltingTouchEnchantment;
 import me.spongycat.spongify.listeners.*;
+import me.spongycat.spongify.listeners.FletchingGUI.ClickEvent;
+import me.spongycat.spongify.listeners.FletchingGUI.DragEvent;
+import me.spongycat.spongify.listeners.FletchingGUI.InteractEvent;
 import me.spongycat.spongify.recipes.*;
 import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
+import org.bukkit.enchantments.Enchantment;
 
+import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.logging.Level;
 
 import static me.spongycat.spongify.Spongify.plugin;
@@ -16,7 +22,7 @@ import static org.bukkit.Bukkit.getServer;
 public class Setup {
     public static me.spongycat.spongify.enchants.AutoReplantEnchantment autoReplantEnchantment;
     public static me.spongycat.spongify.enchants.SmeltingTouchEnchantment smeltingTouchEnchantment;
-    public static void setup() {
+    public static void enable() {
         // Tillable Mycelium
         plugin.getServer().getPluginManager().registerEvents(new TillMyceliumListener(), plugin);
         plugin.getServer().getLogger().log(Level.INFO, "[Spongify] Tillable Mycelium Enabled");
@@ -37,13 +43,13 @@ public class Setup {
         if (plugin.getConfig().getBoolean("Allow_Hoe_Crafting")) {
             AutoReplantRecipe.registerRecipe();
         }
-        Spongify.registerEnchantment(autoReplantEnchantment);
+        registerEnchantment(autoReplantEnchantment);
         plugin.getServer().getPluginManager().registerEvents(autoReplantEnchantment, plugin);
         getServer().getLogger().log(Level.INFO, "[Spongify] Auto Replant Enchant Registered");
 
         // Smelting Touch Enchant
         smeltingTouchEnchantment = new SmeltingTouchEnchantment("smelting_touch");
-        Spongify.registerEnchantment(smeltingTouchEnchantment);
+        registerEnchantment(smeltingTouchEnchantment);
         plugin.getServer().getPluginManager().registerEvents(smeltingTouchEnchantment, plugin);
         plugin.getServer().getPluginManager().registerEvents(new SmeltingTouchRecipe(), plugin);
         SmeltingTouchRecipe.registerRecipe();
@@ -91,5 +97,71 @@ public class Setup {
 
         // God Sword Recipe
         GodSwordRecipe.registerRecipe();
+
+        // Fletching Table GUI
+        plugin.getServer().getPluginManager().registerEvents(new ClickEvent(), plugin);
+        plugin.getServer().getPluginManager().registerEvents(new DragEvent(), plugin);
+        plugin.getServer().getPluginManager().registerEvents(new InteractEvent(), plugin);
+
+        // Custom Arrow
+        plugin.getServer().getPluginManager().registerEvents(new CustomArrowListener(), plugin);
+    }
+    public static void disable() {
+        try {
+            Field keyField = Enchantment.class.getDeclaredField("byKey");
+
+            keyField.setAccessible(true);
+            @SuppressWarnings("unchecked")
+            HashMap<NamespacedKey, Enchantment> byKey = (HashMap<NamespacedKey, Enchantment>) keyField.get(null);
+
+            if(byKey.containsKey(autoReplantEnchantment.getKey())) {
+                byKey.remove(autoReplantEnchantment.getKey());
+            }
+            Field nameField = Enchantment.class.getDeclaredField("byName");
+
+            nameField.setAccessible(true);
+            @SuppressWarnings("unchecked")
+            HashMap<String, Enchantment> byName = (HashMap<String, Enchantment>) nameField.get(null);
+
+            if(byName.containsKey(autoReplantEnchantment.getName())) {
+                byName.remove(autoReplantEnchantment.getName());
+            }
+        } catch (Exception ignored) { }
+        // Smelting Touch Enchant
+        try {
+            Field keyField = Enchantment.class.getDeclaredField("byKey");
+
+            keyField.setAccessible(true);
+            @SuppressWarnings("unchecked")
+            HashMap<NamespacedKey, Enchantment> byKey = (HashMap<NamespacedKey, Enchantment>) keyField.get(null);
+
+            if(byKey.containsKey(smeltingTouchEnchantment.getKey())) {
+                byKey.remove(smeltingTouchEnchantment.getKey());
+            }
+            Field nameField = Enchantment.class.getDeclaredField("byName");
+
+            nameField.setAccessible(true);
+            @SuppressWarnings("unchecked")
+            HashMap<String, Enchantment> byName = (HashMap<String, Enchantment>) nameField.get(null);
+
+            if(byName.containsKey(smeltingTouchEnchantment.getName())) {
+                byName.remove(smeltingTouchEnchantment.getName());
+            }
+        } catch (Exception ignored) { }
+    }
+    public static void registerEnchantment(Enchantment enchantment) {
+        boolean registered = true;
+        try {
+            Field f = Enchantment.class.getDeclaredField("acceptingNew");
+            f.setAccessible(true);
+            f.set(null, true);
+            Enchantment.registerEnchantment(enchantment);
+        } catch (Exception e) {
+            registered = false;
+            e.printStackTrace();
+        }
+        if(registered){
+            // It's been registered!
+        }
     }
 }

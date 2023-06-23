@@ -70,4 +70,17 @@ public class AutoReplantRecipe {
 
         return hoe;
     }
+
+    public static ItemStack getCarrot() {
+        ItemStack carrot = new ItemStack(Material.GOLDEN_CARROT, 1);
+        carrot.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 10);
+        ItemMeta meta2 = carrot.getItemMeta();
+        ArrayList<String> lore2 = new ArrayList<>();
+        lore2.add(ChatColor.LIGHT_PURPLE + "Special golden carrot with mysterious power...");
+        meta2.setLore(lore2);
+        meta2.setDisplayName(ChatColor.GOLD + "Super Golden Carrot");
+        carrot.setItemMeta(meta2);
+
+        return carrot;
+    }
 }
