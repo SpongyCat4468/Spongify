@@ -16,7 +16,7 @@ public final class Spongify extends JavaPlugin {
     public static me.spongycat.spongify.enchants.AutoReplantEnchantment autoReplantEnchantment;
     public static me.spongycat.spongify.enchants.SmeltingTouchEnchantment smeltingTouchEnchantment;
 
-    public static final String version = "1.2.2";
+    public static final String version = "1.2.3";
 
     @Override
     public void onEnable() {

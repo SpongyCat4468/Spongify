@@ -1,4 +1,4 @@
-package me.spongycat.spongify.listeners;
+package me.spongycat.spongify.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class TabCompleteListener implements TabCompleter{
+public class SpongifyTabComplete implements TabCompleter{
     @Override
     public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] args) {
         List<String> completions = new ArrayList<>();
@@ -18,9 +18,13 @@ public class TabCompleteListener implements TabCompleter{
             completions.add("about");
             completions.add("give");
         } else if (args.length == 2 && Objects.equals(args[0], "give")) {
+            // Misc
+            completions.add("DiamondCore");
+            completions.add("SuperGoldenCarrot");
             completions.add("SmeltingTouch");
             completions.add("AutoReplant");
             completions.add("Bundle");
+            // God Sword Item
             completions.add("SaradominHilt");
             completions.add("GuthixHilt");
             completions.add("ArmadylHilt");
@@ -30,8 +34,22 @@ public class TabCompleteListener implements TabCompleter{
             completions.add("GuthixGodSword");
             completions.add("ArmadylGodSword");
             completions.add("ZamorakGodSword");
-            completions.add("DiamondCore");
-            completions.add("SuperGoldenCarrot");
+            // Custom Arrow
+            completions.add("DiamondArrow");
+            completions.add("NetheriteArrow");
+            completions.add("LightningArrow");
+            completions.add("ExplosiveArrow");
+            completions.add("TeleportArrow");
+            completions.add("LevitateArrow");
+            completions.add("WitherArrow");
+
+            completions.add("DiamondArrowhead");
+            completions.add("NetheriteArrowhead");
+            completions.add("ArmadylArrowhead");
+            completions.add("GuthixArrowhead");
+            completions.add("SaradominArrowhead");
+            completions.add("ZamorakArrowhead");
+            completions.add("ZarosArrowhead");
         }
         return completions;
     }

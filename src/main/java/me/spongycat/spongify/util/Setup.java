@@ -1,6 +1,7 @@
 package me.spongycat.spongify.util;
 
 import me.spongycat.spongify.commands.SpongifyCommand;
+import me.spongycat.spongify.commands.SpongifyTabComplete;
 import me.spongycat.spongify.enchants.AutoReplantEnchantment;
 import me.spongycat.spongify.enchants.SmeltingTouchEnchantment;
 import me.spongycat.spongify.listeners.*;
@@ -91,7 +92,7 @@ public class Setup {
         }
 
         // Auto Tab Complete
-        plugin.getCommand("spongify").setTabCompleter(new TabCompleteListener());
+        plugin.getCommand("spongify").setTabCompleter(new SpongifyTabComplete());
 
         // Prevent Zamorack Hilt (redstone) from being placing down
         plugin.getServer().getPluginManager().registerEvents(new BlockPlaceListener(), plugin);
