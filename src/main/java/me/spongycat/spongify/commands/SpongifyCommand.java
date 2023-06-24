@@ -49,7 +49,7 @@ public class SpongifyCommand implements CommandExecutor {
                         p.sendMessage(ChatColor.RED + "You don't have spongify.lore permission to perform this command!");
                     }
                 } else if (Objects.equals(args[0], "version")) {
-                    p.sendMessage(ChatColor.GREEN + "Spongify is on version " + ChatColor.LIGHT_PURPLE + Spongify.version);
+                    p.sendMessage(ChatColor.GREEN + "Spongify is on version " + ChatColor.LIGHT_PURPLE + "v" + Spongify.version);
                 } else if (Objects.equals(args[0], "give")) {
                     if (p.hasPermission("spongify.give")) {
                         Material air = Material.AIR;
