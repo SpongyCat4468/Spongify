@@ -23,7 +23,7 @@ import java.util.Random;
 public class CustomArrowListener implements Listener {
 
     @EventHandler
-    public void onArrowLand(ProjectileHitEvent e) {
+    public void onArrowLand(ProjectileHitEvent e) throws InterruptedException {
         if (e.getEntity() instanceof Arrow arrow) {
             if (arrow.getShooter() instanceof Player shooter) {
                 // Check if the shooter has a custom item in their hand
@@ -50,6 +50,24 @@ public class CustomArrowListener implements Listener {
                     addEffectToEntity(livingEntity, PotionEffectType.LEVITATION, 300, 2);
                 } else if (isUsingWitherArrow(shooter)  && e.getHitEntity() instanceof LivingEntity livingEntity) {
                     addEffectToEntity(livingEntity, PotionEffectType.WITHER, 100, 3);
+                } else if (isUsingDiamondArrow(shooter)  && e.getHitEntity() instanceof LivingEntity livingEntity) {
+                    if (livingEntity.getHealth() - 6 <= 0) {
+                        livingEntity.setHealth(0);
+                        if (livingEntity instanceof Player p) {
+                            p.getServer().getConsoleSender().sendMessage(p.getDisplayName() + " was killed by a diamond arrow");
+                        }
+                    } else {
+                        livingEntity.setHealth(livingEntity.getHealth() - 6);
+                    }
+                } else if (isUsingNetheriteArrow(shooter)  && e.getHitEntity() instanceof LivingEntity livingEntity) {
+                    if (livingEntity.getHealth() - 12 <= 0) {
+                        livingEntity.setHealth(0);
+                        if (livingEntity instanceof Player p) {
+                            p.getServer().getConsoleSender().sendMessage(p.getDisplayName() + " was killed by a netherite arrow");
+                        }
+                    } else {
+                        livingEntity.setHealth(livingEntity.getHealth() - 12);
+                    }
                 }
             }
         }
@@ -144,7 +162,8 @@ public class CustomArrowListener implements Listener {
             return true;
         }
         return false;
-    }public boolean isUsingLightningArrow(Player player) {
+    }
+    public boolean isUsingLightningArrow(Player player) {
         ItemStack offHandItem = player.getInventory().getItemInOffHand();
         ItemStack mainHandItem = player.getInventory().getItemInMainHand();
 
@@ -154,6 +173,34 @@ public class CustomArrowListener implements Listener {
             return true;
         } else if ((mainHandItem.getType() == Material.BOW || mainHandItem.getType() == Material.CROSSBOW)
                 && offHandItem.isSimilar(CustomArrowItem.getLightningArrow())) {
+            return true;
+        }
+        return false;
+    }
+    public boolean isUsingNetheriteArrow(Player player) {
+        ItemStack offHandItem = player.getInventory().getItemInOffHand();
+        ItemStack mainHandItem = player.getInventory().getItemInMainHand();
+
+        // Check if the offhand item is a bow or crossbow and the mainhand item is an arrow
+        if ((offHandItem.getType() == Material.BOW || offHandItem.getType() == Material.CROSSBOW)
+                && mainHandItem.isSimilar(CustomArrowItem.getNetheriteArrow())) {
+            return true;
+        } else if ((mainHandItem.getType() == Material.BOW || mainHandItem.getType() == Material.CROSSBOW)
+                && offHandItem.isSimilar(CustomArrowItem.getNetheriteArrow())) {
+            return true;
+        }
+        return false;
+    }
+    public boolean isUsingDiamondArrow(Player player) {
+        ItemStack offHandItem = player.getInventory().getItemInOffHand();
+        ItemStack mainHandItem = player.getInventory().getItemInMainHand();
+
+        // Check if the offhand item is a bow or crossbow and the mainhand item is an arrow
+        if ((offHandItem.getType() == Material.BOW || offHandItem.getType() == Material.CROSSBOW)
+                && mainHandItem.isSimilar(CustomArrowItem.getDiamondArrow())) {
+            return true;
+        } else if ((mainHandItem.getType() == Material.BOW || mainHandItem.getType() == Material.CROSSBOW)
+                && offHandItem.isSimilar(CustomArrowItem.getDiamondArrow())) {
             return true;
         }
         return false;

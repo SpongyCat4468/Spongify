@@ -38,7 +38,9 @@ public class ClickEvent implements Listener {
                 isSimilarMaterial(clickedItem, Material.PHANTOM_MEMBRANE) ||
                 isSimilarMaterial(clickedItem, Material.WITHER_ROSE) ||
                 isSimilarMaterial(clickedItem, Material.FLINT) ||
-                isSimilarMaterial(clickedItem, Material.BLAZE_ROD))) {
+                isSimilarMaterial(clickedItem, Material.BLAZE_ROD) ||
+                isSimilarMaterial(clickedItem, Material.NETHERITE_INGOT) ||
+                isSimilarMaterial(clickedItem, Material.DIAMOND))) {
             e.setCancelled(true);
         }
 
@@ -58,10 +60,10 @@ public class ClickEvent implements Listener {
 
 
 
-
+        // Fletch
         if (clickedItem.isSimilar(fletch)) {
             // 10, 13, 16
-            if (materialSlot != null && arrowSlot != null) {
+            if (materialSlot != null && arrowSlot != null && arrowheadSlot != null) {
                 int arrowAm = arrowSlot.getAmount();
                 int materialAm = materialSlot.getAmount();
                 int arrowheadAm = materialSlot.getAmount();
