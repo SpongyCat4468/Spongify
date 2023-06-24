@@ -5,6 +5,7 @@ import me.spongycat.spongify.enchants.AutoReplantEnchantment;
 import me.spongycat.spongify.enchants.SmeltingTouchEnchantment;
 import me.spongycat.spongify.listeners.*;
 import me.spongycat.spongify.listeners.FletchingGUI.ClickEvent;
+import me.spongycat.spongify.listeners.FletchingGUI.CloseEvent;
 import me.spongycat.spongify.listeners.FletchingGUI.DragEvent;
 import me.spongycat.spongify.listeners.FletchingGUI.InteractEvent;
 import me.spongycat.spongify.recipes.*;
@@ -100,6 +101,7 @@ public class Setup {
 
         // Fletching Table GUI
         plugin.getServer().getPluginManager().registerEvents(new ClickEvent(), plugin);
+        plugin.getServer().getPluginManager().registerEvents(new CloseEvent(), plugin);
         plugin.getServer().getPluginManager().registerEvents(new DragEvent(), plugin);
         plugin.getServer().getPluginManager().registerEvents(new InteractEvent(), plugin);
 
