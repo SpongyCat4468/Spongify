@@ -53,7 +53,6 @@ public class SpongifyCommand implements CommandExecutor {
                 } else if (Objects.equals(args[0], "give")) {
                     if (p.hasPermission("spongify.give")) {
                         Material air = Material.AIR;
-                        PlayerInventory pInventory = p.getInventory();
                         if (Objects.equals(args[1], "SmeltingTouch")) {
                             Give.givePlayer(p, SmeltingTouchRecipe.getSmeltingTouchBook(), 1, "Smelting Touch Book");
                         } else if (Objects.equals(args[1], "AutoReplant")) {
