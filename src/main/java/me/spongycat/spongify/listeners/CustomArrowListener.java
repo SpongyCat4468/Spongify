@@ -7,6 +7,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -14,25 +15,69 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityInteractEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.Random;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 import static me.spongycat.spongify.Spongify.plugin;
 
 
 public class CustomArrowListener implements Listener {
+    private Set<UUID> playersShootingExplosive = new HashSet<>();
+    private Set<UUID> playersShootingLightning = new HashSet<>();
+    private Set<UUID> playersShootingLevitate = new HashSet<>();
+    private Set<UUID> playersShootingTeleport = new HashSet<>();
+    private Set<UUID> playersShootingWither = new HashSet<>();
+    private Set<UUID> playersShootingDiamond = new HashSet<>();
+    private Set<UUID> playersShootingNetherite = new HashSet<>();
+
+    private int count = 3;
 
     @EventHandler
-    public void onArrowLand(ProjectileHitEvent e) throws InterruptedException {
+    public void onPrepareShoot(PlayerInteractEvent e) {
+        Player p = e.getPlayer();
+        if (isUsingExplosiveArrow(p)) {
+            playersShootingExplosive.add(p.getUniqueId());
+        } else if (isUsingLightningArrow(p)) {
+            playersShootingLightning.add(p.getUniqueId());
+        } else if (isUsingLevitateArrow(p)) {
+            playersShootingLevitate.add(p.getUniqueId());
+        } else if (isUsingTeleportArrow(p)) {
+            playersShootingTeleport.add(p.getUniqueId());
+        } else if (isUsingWitherArrow(p)) {
+            playersShootingWither.add(p.getUniqueId());
+        } else if (isUsingDiamondArrow(p)) {
+            playersShootingDiamond.add(p.getUniqueId());
+        } else if (isUsingNetheriteArrow(p)) {
+            playersShootingNetherite.add(p.getUniqueId());
+        }
+    }
+
+    @EventHandler
+    public void onArrowLand(ProjectileHitEvent e) {
         if (e.getEntity() instanceof Arrow arrow) {
             if (arrow.getShooter() instanceof Player shooter) {
+                UUID ID = shooter.getUniqueId();
                 // Check if the shooter has a custom item in their hand
-                if (isUsingExplosiveArrow(shooter)) {
+                if (playersShootingExplosive.contains(ID)) {
+                    if (!isUsingMultishot(shooter)) {
+                        playersShootingExplosive.remove(ID);
+                    } else {
+                        if (count != 1) {
+                            count -= 1;
+                        } else {
+                            count = 3;
+                            playersShootingExplosive.remove(ID);
+                        }
+                    }
                     Location arrowLocation = arrow.getLocation();
 
                     World world = arrowLocation.getWorld();
@@ -40,22 +85,72 @@ public class CustomArrowListener implements Listener {
                     boolean setFire = false;
                     world.createExplosion(arrowLocation, power, setFire);
                     arrow.remove();
-                } else if (isUsingTeleportArrow(shooter)) {
+                } else if (playersShootingTeleport.contains(ID)) {
+                    if (!isUsingMultishot(shooter)) {
+                        playersShootingTeleport.remove(ID);
+                    } else {
+                        if (count != 1) {
+                            count -= 1;
+                        } else {
+                            count = 3;
+                            playersShootingTeleport.remove(ID);
+                        }
+                    }
                     Location arrowLocation = arrow.getLocation();
 
                     arrow.remove();
                     shooter.teleport(arrowLocation);
-                } else if (isUsingLightningArrow(shooter)) {
+                } else if (playersShootingLightning.contains(ID)) {
+                    if (!isUsingMultishot(shooter)) {
+                        playersShootingLightning.remove(ID);
+                    } else {
+                        if (count != 1) {
+                            count -= 1;
+                        } else {
+                            count = 3;
+                            playersShootingLightning.remove(ID);
+                        }
+                    }
                     Location arrowLocation = arrow.getLocation();
                     World world = arrowLocation.getWorld();
 
                     arrow.remove();
                     world.strikeLightning(arrowLocation);
-                } else if (isUsingLevitateArrow(shooter) && e.getHitEntity() instanceof LivingEntity livingEntity) {
+                } else if (playersShootingLevitate.contains(ID) && e.getHitEntity() instanceof LivingEntity livingEntity) {
+                    if (!isUsingMultishot(shooter)) {
+                        playersShootingLevitate.remove(ID);
+                    } else {
+                        if (count != 1) {
+                            count -= 1;
+                        } else {
+                            count = 3;
+                            playersShootingLevitate.remove(ID);
+                        }
+                    }
                     addEffectToEntity(livingEntity, PotionEffectType.LEVITATION, 300, 2);
-                } else if (isUsingWitherArrow(shooter)  && e.getHitEntity() instanceof LivingEntity livingEntity) {
+                } else if (playersShootingWither.contains(ID)  && e.getHitEntity() instanceof LivingEntity livingEntity) {
+                    if (!isUsingMultishot(shooter)) {
+                        playersShootingWither.remove(ID);
+                    } else {
+                        if (count != 1) {
+                            count -= 1;
+                        } else {
+                            count = 3;
+                            playersShootingWither.remove(ID);
+                        }
+                    }
                     addEffectToEntity(livingEntity, PotionEffectType.WITHER, 100, 3);
-                } else if (isUsingDiamondArrow(shooter)  && e.getHitEntity() instanceof LivingEntity livingEntity) {
+                } else if (playersShootingDiamond.contains(ID)  && e.getHitEntity() instanceof LivingEntity livingEntity) {
+                    if (!isUsingMultishot(shooter)) {
+                        playersShootingDiamond.remove(ID);
+                    } else {
+                        if (count != 1) {
+                            count -= 1;
+                        } else {
+                            count = 3;
+                            playersShootingDiamond.remove(ID);
+                        }
+                    }
                     if (livingEntity.getHealth() - 6 <= 0) {
                         livingEntity.setHealth(0);
                         if (livingEntity instanceof Player p) {
@@ -64,7 +159,17 @@ public class CustomArrowListener implements Listener {
                     } else {
                         livingEntity.setHealth(livingEntity.getHealth() - 6);
                     }
-                } else if (isUsingNetheriteArrow(shooter)  && e.getHitEntity() instanceof LivingEntity livingEntity) {
+                } else if (playersShootingNetherite.contains(ID)  && e.getHitEntity() instanceof LivingEntity livingEntity) {
+                    if (!isUsingMultishot(shooter)) {
+                        playersShootingNetherite.remove(ID);
+                    } else {
+                        if (count != 1) {
+                            count -= 1;
+                        } else {
+                            count = 3;
+                            playersShootingNetherite.remove(ID);
+                        }
+                    }
                     if (livingEntity.getHealth() - 12 <= 0) {
                         livingEntity.setHealth(0);
                         if (livingEntity instanceof Player p) {
@@ -81,17 +186,14 @@ public class CustomArrowListener implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
         if (e.getBlock().getType() == Material.DIAMOND_ORE && isNaturallyGenerated(e.getBlock())) {
-            Random random = new Random();
             if (drop(plugin.getConfig().getInt("Diamond_Ore"))) {
                 Give.givePlayer(e.getPlayer(), CustomArrowItem.getDiamondArrowhead(), 1, "Diamond Arrowhead");
             }
         } else if (e.getBlock().getType() == Material.DEEPSLATE_DIAMOND_ORE && isNaturallyGenerated(e.getBlock())) {
-            Random random = new Random();
             if (drop(plugin.getConfig().getInt("Diamond_Ore"))) {
                 Give.givePlayer(e.getPlayer(), CustomArrowItem.getDiamondArrowhead(), 1, "Diamond Arrowhead");
             }
         } else if (e.getBlock().getType() == Material.ANCIENT_DEBRIS && isNaturallyGenerated(e.getBlock())) {
-            Random random = new Random();
             if (drop(plugin.getConfig().getInt("Ancient_Debris"))) {
                 Give.givePlayer(e.getPlayer(), CustomArrowItem.getNetheriteArrowhead(), 1, "Netherite Arrowhead");
             }
@@ -226,6 +328,11 @@ public class CustomArrowListener implements Listener {
             return true;
         }
         return false;
+    }
+
+    public boolean isUsingMultishot(Player player) {
+        return player.getInventory().getItemInOffHand().containsEnchantment(Enchantment.MULTISHOT) ||
+                player.getInventory().getItemInMainHand().containsEnchantment(Enchantment.MULTISHOT);
     }
 
 
