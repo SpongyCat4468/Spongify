@@ -1,5 +1,6 @@
 package me.spongycat.spongify.listeners;
 
+import me.spongycat.spongify.Spongify;
 import me.spongycat.spongify.items.CustomArrowItem;
 import me.spongycat.spongify.util.Give;
 import org.bukkit.Location;
@@ -12,12 +13,16 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.Random;
+
+import static me.spongycat.spongify.Spongify.plugin;
 
 
 public class CustomArrowListener implements Listener {
@@ -75,29 +80,46 @@ public class CustomArrowListener implements Listener {
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
-        if (e.getBlock().getType() == Material.DIAMOND_ORE || e.getBlock().getType() == Material.DEEPSLATE_DIAMOND_ORE && isNaturallyGenerated(e.getBlock())) {
+        if (e.getBlock().getType() == Material.DIAMOND_ORE && isNaturallyGenerated(e.getBlock())) {
             Random random = new Random();
-            if (random.nextInt(100) + 1 == 1) {
+            if (drop(plugin.getConfig().getInt("Diamond_Ore"))) {
                 Give.givePlayer(e.getPlayer(), CustomArrowItem.getDiamondArrowhead(), 1, "Diamond Arrowhead");
             }
-        }
-        if (e.getBlock().getType() == Material.ANCIENT_DEBRIS && isNaturallyGenerated(e.getBlock())) {
+        } else if (e.getBlock().getType() == Material.DEEPSLATE_DIAMOND_ORE && isNaturallyGenerated(e.getBlock())) {
             Random random = new Random();
-            if (random.nextInt(100) + 1 == 1) {
+            if (drop(plugin.getConfig().getInt("Diamond_Ore"))) {
+                Give.givePlayer(e.getPlayer(), CustomArrowItem.getDiamondArrowhead(), 1, "Diamond Arrowhead");
+            }
+        } else if (e.getBlock().getType() == Material.ANCIENT_DEBRIS && isNaturallyGenerated(e.getBlock())) {
+            Random random = new Random();
+            if (drop(plugin.getConfig().getInt("Ancient_Debris"))) {
                 Give.givePlayer(e.getPlayer(), CustomArrowItem.getNetheriteArrowhead(), 1, "Netherite Arrowhead");
             }
         }
     }
 
-    public boolean isNaturallyGenerated(Block block) {
-        // Compare block metadata with the default value (e.g., 0 for most blocks)
-        if (block.getType() == Material.ANCIENT_DEBRIS) {
-            return block.getBlockData().getAsString().contains("minecraft:ancient_debris"); // Replace with the block type you want to check
-        } else if (block.getType() == Material.DIAMOND_ORE) {
-            return block.getBlockData().getAsString().contains("minecraft:diamond_ore");
-        } else {
-            return block.getBlockData().getAsString().contains("minecraft:deepslate_diamond_ore");
+    public static boolean drop(int percentage) {
+        // Convert the percentage to a decimal value
+        double probability = percentage / 100.0;
+
+        // Generate a random number between 0 and 1
+        double random = Math.random();
+
+        // Check if the random number is less than the probability
+        return random < probability;
+    }
+
+    @EventHandler
+    public void onBlockPlace(BlockPlaceEvent event) {
+        Block b = event.getBlock();
+        if (b.getType() == Material.DIAMOND_ORE || b.getType() == Material.DEEPSLATE_DIAMOND_ORE || b.getType() == Material.ANCIENT_DEBRIS) {
+            b.setMetadata("PLACED", new FixedMetadataValue(plugin, "E"));
+            System.out.println("PLACED");
         }
+    }
+
+    public boolean isNaturallyGenerated(Block block) {
+        return !block.hasMetadata("PLACED");
     }
 
 

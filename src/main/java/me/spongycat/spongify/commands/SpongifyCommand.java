@@ -4,7 +4,6 @@ import me.spongycat.spongify.Spongify;
 import me.spongycat.spongify.items.CustomArrowItem;
 import me.spongycat.spongify.items.GodSwordItem;
 import me.spongycat.spongify.recipes.AutoReplantRecipe;
-import me.spongycat.spongify.recipes.BundleRecipe;
 import me.spongycat.spongify.recipes.SmeltingTouchRecipe;
 import me.spongycat.spongify.util.Give;
 import org.bukkit.Bukkit;
@@ -21,6 +20,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.Objects;
+
+import static me.spongycat.spongify.Spongify.plugin;
 
 public class SpongifyCommand implements CommandExecutor {
     @Override
@@ -115,6 +116,8 @@ public class SpongifyCommand implements CommandExecutor {
                     }
                 } else if (Objects.equals(args[0], "about")) {
                     p.sendMessage(ChatColor.AQUA + "Author: SpongyCat\n" + ChatColor.GOLD + "Discord: SpongyCat#1562\n" + ChatColor.GREEN + "Github Repo: https://github.com/SpongyCat4468/Spongify\n" + ChatColor.LIGHT_PURPLE + "Enjoy This Plugin!");
+                } else if (Objects.equals(args[0], "reload")) {
+                    plugin.reloadConfig();
                 }
             } else {
                 p.sendMessage(ChatColor.RED + "Usage of /spongify is " + ChatColor.BLUE + "/spongify lore, /spongify version, /spongify about, /spongify give");

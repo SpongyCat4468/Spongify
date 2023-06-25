@@ -17,6 +17,7 @@ public class SpongifyTabComplete implements TabCompleter{
             completions.add("lore");
             completions.add("about");
             completions.add("give");
+            completions.add("reload");
         } else if (args.length == 2 && Objects.equals(args[0], "give")) {
             // Misc
             completions.add("DiamondCore");
