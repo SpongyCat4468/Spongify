@@ -25,7 +25,7 @@ public class Give {
         itemStack.setAmount(amount);
         int emptySlot = PI.firstEmpty();
         if (emptySlot == -1) {
-            p.sendMessage(ChatColor.RED + "Your inventory is full, and " + name + " has appeared on the floor, beware!");
+            p.sendMessage(ChatColor.RED + "Your inventory is full, and a " + name + " has appeared on the floor, beware!");
             p.getWorld().dropItem(p.getLocation(), itemStack);
         } else {
             PI.setItem(emptySlot, itemStack);

@@ -1,7 +1,6 @@
 package me.spongycat.spongify.enchants;
 
 import me.spongycat.spongify.Spongify;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;

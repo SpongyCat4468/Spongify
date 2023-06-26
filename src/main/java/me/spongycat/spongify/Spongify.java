@@ -3,12 +3,8 @@ package me.spongycat.spongify;
 import me.spongycat.spongify.enchants.AutoReplantEnchantment;
 import me.spongycat.spongify.enchants.SmeltingTouchEnchantment;
 import me.spongycat.spongify.util.Setup;
-import org.bukkit.NamespacedKey;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.lang.reflect.Field;
-import java.util.HashMap;
 
 public final class Spongify extends JavaPlugin {
 

@@ -118,6 +118,7 @@ public class SpongifyCommand implements CommandExecutor {
                     p.sendMessage(ChatColor.AQUA + "Author: SpongyCat\n" + ChatColor.GOLD + "Discord: SpongyCat#1562\n" + ChatColor.GREEN + "Github Repo: https://github.com/SpongyCat4468/Spongify\n" + ChatColor.LIGHT_PURPLE + "Enjoy This Plugin!");
                 } else if (Objects.equals(args[0], "reload")) {
                     plugin.reloadConfig();
+                    p.sendMessage(ChatColor.GREEN + "Config Reloaded!");
                 }
             } else {
                 p.sendMessage(ChatColor.RED + "Usage of /spongify is " + ChatColor.BLUE + "/spongify lore, /spongify version, /spongify about, /spongify give");

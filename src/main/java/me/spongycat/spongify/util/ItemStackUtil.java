@@ -10,6 +10,9 @@ public class ItemStackUtil {
         itemMeta.setDisplayName(name);
         item.setItemMeta(itemMeta);
     }
+    public static String getDisplayName(ItemStack item) {
+        return item.getItemMeta().getDisplayName();
+    }
     public static boolean isSimilarMaterial(ItemStack item, Material material) {
         return item.getType() == material;
     }
@@ -17,4 +20,6 @@ public class ItemStackUtil {
     public static boolean isSimilarItem(ItemStack item1, ItemStack item2) {
         return item1.isSimilar(item2);
     }
+
+
 }

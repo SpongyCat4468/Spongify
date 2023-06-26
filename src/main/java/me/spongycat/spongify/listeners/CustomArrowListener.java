@@ -1,6 +1,5 @@
 package me.spongycat.spongify.listeners;
 
-import me.spongycat.spongify.Spongify;
 import me.spongycat.spongify.items.CustomArrowItem;
 import me.spongycat.spongify.util.Give;
 import org.bukkit.Location;
@@ -15,7 +14,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.EntityInteractEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
@@ -68,6 +66,7 @@ public class CustomArrowListener implements Listener {
                 UUID ID = shooter.getUniqueId();
                 // Check if the shooter has a custom item in their hand
                 if (playersShootingExplosive.contains(ID)) {
+                    clearAllStatus(ID, "ex");
                     if (!isUsingMultishot(shooter)) {
                         playersShootingExplosive.remove(ID);
                     } else {
@@ -86,6 +85,7 @@ public class CustomArrowListener implements Listener {
                     world.createExplosion(arrowLocation, power, setFire);
                     arrow.remove();
                 } else if (playersShootingTeleport.contains(ID)) {
+                    clearAllStatus(ID, "te");
                     if (!isUsingMultishot(shooter)) {
                         playersShootingTeleport.remove(ID);
                     } else {
@@ -101,6 +101,7 @@ public class CustomArrowListener implements Listener {
                     arrow.remove();
                     shooter.teleport(arrowLocation);
                 } else if (playersShootingLightning.contains(ID)) {
+                    clearAllStatus(ID, "li");
                     if (!isUsingMultishot(shooter)) {
                         playersShootingLightning.remove(ID);
                     } else {
@@ -117,6 +118,7 @@ public class CustomArrowListener implements Listener {
                     arrow.remove();
                     world.strikeLightning(arrowLocation);
                 } else if (playersShootingLevitate.contains(ID) && e.getHitEntity() instanceof LivingEntity livingEntity) {
+                    clearAllStatus(ID, "le");
                     if (!isUsingMultishot(shooter)) {
                         playersShootingLevitate.remove(ID);
                     } else {
@@ -129,6 +131,7 @@ public class CustomArrowListener implements Listener {
                     }
                     addEffectToEntity(livingEntity, PotionEffectType.LEVITATION, 300, 2);
                 } else if (playersShootingWither.contains(ID)  && e.getHitEntity() instanceof LivingEntity livingEntity) {
+                    clearAllStatus(ID, "wi");
                     if (!isUsingMultishot(shooter)) {
                         playersShootingWither.remove(ID);
                     } else {
@@ -141,6 +144,7 @@ public class CustomArrowListener implements Listener {
                     }
                     addEffectToEntity(livingEntity, PotionEffectType.WITHER, 100, 3);
                 } else if (playersShootingDiamond.contains(ID)  && e.getHitEntity() instanceof LivingEntity livingEntity) {
+                    clearAllStatus(ID, "di");
                     if (!isUsingMultishot(shooter)) {
                         playersShootingDiamond.remove(ID);
                     } else {
@@ -160,6 +164,7 @@ public class CustomArrowListener implements Listener {
                         livingEntity.setHealth(livingEntity.getHealth() - 6);
                     }
                 } else if (playersShootingNetherite.contains(ID)  && e.getHitEntity() instanceof LivingEntity livingEntity) {
+                    clearAllStatus(ID, "ne");
                     if (!isUsingMultishot(shooter)) {
                         playersShootingNetherite.remove(ID);
                     } else {
@@ -335,7 +340,43 @@ public class CustomArrowListener implements Listener {
                 player.getInventory().getItemInMainHand().containsEnchantment(Enchantment.MULTISHOT);
     }
 
-
+    public void clearAllStatus(UUID ID, String identifier) {
+        if (playersShootingNetherite.contains(ID)) {
+            if (identifier != "ne") {
+                playersShootingNetherite.remove(ID);
+            }
+        }
+        if (playersShootingTeleport.contains(ID)) {
+            if (identifier != "te") {
+                playersShootingTeleport.remove(ID);
+            }
+        }
+        if (playersShootingLightning.contains(ID)) {
+            if (identifier != "li") {
+                playersShootingLightning.remove(ID);
+            }
+         }
+        if (playersShootingLevitate.contains(ID)) {
+            if (identifier != "le") {
+                playersShootingLevitate.remove(ID);
+            }
+        }
+        if (playersShootingWither.contains(ID)) {
+            if (identifier != "wi") {
+                playersShootingWither.remove(ID);
+            }
+        }
+        if (playersShootingDiamond.contains(ID)) {
+            if (identifier != "di") {
+                playersShootingDiamond.remove(ID);
+            }
+        }
+        if (playersShootingExplosive.contains(ID)) {
+            if (identifier != "ex") {
+                playersShootingExplosive.remove(ID);
+            }
+        }
+     }
 }
 
 
