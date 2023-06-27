@@ -4,7 +4,7 @@ import me.spongycat.spongify.Spongify;
 import org.bukkit.NamespacedKey;
 
 public class NameSpaceKeyCreator {
-    public static NamespacedKey getRecipeKey(String key) {
+    public static NamespacedKey getNameSpacedKey(String key) {
         return new NamespacedKey(Spongify.plugin, key);
     }
 }

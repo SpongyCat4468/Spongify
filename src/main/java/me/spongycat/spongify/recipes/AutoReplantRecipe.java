@@ -1,6 +1,7 @@
 package me.spongycat.spongify.recipes;
 
 import me.spongycat.spongify.Spongify;
+import me.spongycat.spongify.util.ItemStackUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -21,20 +22,12 @@ public class AutoReplantRecipe {
         hoe.addEnchantment(Enchantment.DURABILITY, 3);
         hoe.addEnchantment(Enchantment.MENDING, 1);
         hoe.addEnchantment(Enchantment.LOOT_BONUS_BLOCKS, 3);
-        ItemMeta meta = hoe.getItemMeta();
-        ArrayList<String> lore = new ArrayList<>();
-        lore.add(ChatColor.GOLD + "Auto Replant I");
-        meta.setLore(lore);
-        hoe.setItemMeta(meta);
+        ItemStackUtil.setLore(hoe,ChatColor.GOLD + "Auto Replant I");
 
         ItemStack carrot = new ItemStack(Material.GOLDEN_CARROT, 1);
         carrot.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 10);
-        ItemMeta meta2 = carrot.getItemMeta();
-        ArrayList<String> lore2 = new ArrayList<>();
-        lore2.add(ChatColor.LIGHT_PURPLE + "Special golden carrot with mysterious power...");
-        meta2.setLore(lore2);
-        meta2.setDisplayName(ChatColor.GOLD + "Super Golden Carrot");
-        carrot.setItemMeta(meta2);
+        ItemStackUtil.setLore(carrot, ChatColor.LIGHT_PURPLE + "Special golden carrot with mysterious power...");
+        ItemStackUtil.setDisplayName(carrot, ChatColor.GOLD + "Super Golden Carrot");
 
         RecipeChoice.ExactChoice carrotChoice = new RecipeChoice.ExactChoice(carrot);
 
@@ -62,11 +55,7 @@ public class AutoReplantRecipe {
         hoe.addEnchantment(Enchantment.DURABILITY, 3);
         hoe.addEnchantment(Enchantment.MENDING, 1);
         hoe.addEnchantment(Enchantment.LOOT_BONUS_BLOCKS, 3);
-        ItemMeta meta = hoe.getItemMeta();
-        ArrayList<String> lore = new ArrayList<>();
-        lore.add(ChatColor.GOLD + "Auto Replant I");
-        meta.setLore(lore);
-        hoe.setItemMeta(meta);
+        ItemStackUtil.setLore(hoe,ChatColor.GOLD + "Auto Replant I");
 
         return hoe;
     }
@@ -74,12 +63,8 @@ public class AutoReplantRecipe {
     public static ItemStack getCarrot() {
         ItemStack carrot = new ItemStack(Material.GOLDEN_CARROT, 1);
         carrot.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 10);
-        ItemMeta meta2 = carrot.getItemMeta();
-        ArrayList<String> lore2 = new ArrayList<>();
-        lore2.add(ChatColor.LIGHT_PURPLE + "Special golden carrot with mysterious power...");
-        meta2.setLore(lore2);
-        meta2.setDisplayName(ChatColor.GOLD + "Super Golden Carrot");
-        carrot.setItemMeta(meta2);
+        ItemStackUtil.setLore(carrot, ChatColor.LIGHT_PURPLE + "Special golden carrot with mysterious power...");
+        ItemStackUtil.setDisplayName(carrot, ChatColor.GOLD + "Super Golden Carrot");
 
         return carrot;
     }

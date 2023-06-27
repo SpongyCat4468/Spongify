@@ -1,8 +1,12 @@
 package me.spongycat.spongify.util;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ItemStackUtil {
     public static void setDisplayName(ItemStack item, String name) {
@@ -19,6 +23,32 @@ public class ItemStackUtil {
 
     public static boolean isSimilarItem(ItemStack item1, ItemStack item2) {
         return item1.isSimilar(item2);
+    }
+
+    public static void setLore(ItemStack item, String lore) {
+        ItemMeta meta = item.getItemMeta();
+        ArrayList<String> loreList = new ArrayList<>();
+        loreList.add(lore);
+        meta.setLore(loreList);
+        item.setItemMeta(meta);
+    }
+
+    public static void addLore(ItemStack item, String lore) {
+        ItemMeta meta = item.getItemMeta();
+        List<String> loreList = meta.getLore();
+        loreList.add(lore);
+        meta.setLore(loreList);
+        item.setItemMeta(meta);
+    }
+
+    public static void clearLore(ItemStack item) {
+        ItemMeta meta = item.getItemMeta();
+        List<String> loreList = meta.getLore();
+        if (!loreList.isEmpty()) {
+            loreList.clear();
+        }
+        meta.setLore(loreList);
+        item.setItemMeta(meta);
     }
 
 

@@ -88,7 +88,7 @@ public class Setup {
         // Lore
         if (plugin.getConfig().getBoolean("Command_Enabled")) {
             plugin.getCommand("spongify").setExecutor(new SpongifyCommand());
-            getServer().getLogger().log(Level.INFO, "[Spongify] Lore Command Registered");
+            getServer().getLogger().log(Level.INFO, "[Spongify] Spongify Command Registered");
         }
 
         // Auto Tab Complete
@@ -99,6 +99,7 @@ public class Setup {
 
         // God Sword Recipe
         GodSwordRecipe.registerRecipe();
+        getServer().getLogger().log(Level.INFO, "[Spongify] God Sword Recipes & Items Registered");
 
         // Fletching Table GUI
         plugin.getServer().getPluginManager().registerEvents(new ClickEvent(), plugin);
@@ -108,6 +109,7 @@ public class Setup {
 
         // Custom Arrow
         plugin.getServer().getPluginManager().registerEvents(new CustomArrowListener(), plugin);
+        getServer().getLogger().log(Level.INFO, "[Spongify] Custom Arrows Registered");
     }
     public static void disable() {
         try {

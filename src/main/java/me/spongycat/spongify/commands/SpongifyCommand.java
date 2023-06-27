@@ -3,6 +3,7 @@ package me.spongycat.spongify.commands;
 import me.spongycat.spongify.Spongify;
 import me.spongycat.spongify.items.CustomArrowItem;
 import me.spongycat.spongify.items.GodSwordItem;
+import me.spongycat.spongify.lists.DebugModePlayerList;
 import me.spongycat.spongify.recipes.AutoReplantRecipe;
 import me.spongycat.spongify.recipes.SmeltingTouchRecipe;
 import me.spongycat.spongify.util.Give;
@@ -119,6 +120,12 @@ public class SpongifyCommand implements CommandExecutor {
                 } else if (Objects.equals(args[0], "reload")) {
                     plugin.reloadConfig();
                     p.sendMessage(ChatColor.GREEN + "Config Reloaded!");
+                } else if (Objects.equals(args[0], "debug")) {
+                    if (!DebugModePlayerList.containsPlayer(p)) {
+                        DebugModePlayerList.addPlayer(p);
+                    } else {
+                        DebugModePlayerList.removePlayer(p);
+                    }
                 }
             } else {
                 p.sendMessage(ChatColor.RED + "Usage of /spongify is " + ChatColor.BLUE + "/spongify lore, /spongify version, /spongify about, /spongify give");

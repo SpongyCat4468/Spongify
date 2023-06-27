@@ -1,17 +1,8 @@
 # Spongify
-Spongify Your World!
 
-Used on server:
-Varrock
+## Author: SpongyCat
 
-Java:
-IP:
- 51.81.182.161:25565
+### ~~I'm so lazy to do README lol~~
+### ~~I'll probably do this properly one day~~
 
-Bedrock:
-IP:
- 51.81.182.161
-
-Port: 
-25565
- 
+### Hope you enjoy this plugin!

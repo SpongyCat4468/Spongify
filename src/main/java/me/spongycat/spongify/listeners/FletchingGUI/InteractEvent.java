@@ -1,5 +1,6 @@
 package me.spongycat.spongify.listeners.FletchingGUI;
 
+import me.spongycat.spongify.util.PlayerUtil;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,6 +14,7 @@ public class InteractEvent implements Listener {
     public void onPlayerInteract(PlayerInteractEvent e) {
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK && e.getClickedBlock().getType() == Material.FLETCHING_TABLE ) {
             openInventory(e.getPlayer());
+            PlayerUtil.sendDebugMessage(e.getPlayer(), "Opening Fletching Table.");
         }
     }
 }

@@ -1,6 +1,9 @@
 package me.spongycat.spongify.listeners.FletchingGUI;
 
+import me.spongycat.spongify.GUI.FletchingTableGUI;
 import me.spongycat.spongify.items.CustomArrowItem;
+import me.spongycat.spongify.util.ItemStackUtil;
+import me.spongycat.spongify.util.PlayerUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -9,8 +12,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-
 import static me.spongycat.spongify.util.ItemStackUtil.isSimilarItem;
 import static me.spongycat.spongify.util.ItemStackUtil.isSimilarMaterial;
 
@@ -27,7 +28,9 @@ public class ClickEvent implements Listener {
         ItemStack netheriteArrowhead = CustomArrowItem.getNetheriteArrowhead();
 
         final ItemStack clickedItem = e.getCurrentItem();
-        if (!e.getInventory().containsAtLeast(new ItemStack(Material.GREEN_STAINED_GLASS_PANE), 40)) return;
+        if (e.getClickedInventory() != FletchingTableGUI.getGUI()) return;
+
+        final Player p = (Player) e.getWhoClicked();
 
         if (clickedItem == null || clickedItem.getType() == Material.AIR) return;
 
@@ -42,16 +45,16 @@ public class ClickEvent implements Listener {
                 isSimilarMaterial(clickedItem, Material.NETHERITE_INGOT) ||
                 isSimilarMaterial(clickedItem, Material.DIAMOND))) {
             e.setCancelled(true);
+            PlayerUtil.sendDebugMessage(p, "Click event has been cancelled.");
         }
 
         ItemStack fletch = new ItemStack(Material.RED_STAINED_GLASS_PANE);
-        ItemMeta fletchMeta = fletch.getItemMeta();
-        fletchMeta.setDisplayName(ChatColor.YELLOW + "Click To Fletch Your Custom Arrow!");
-        fletch.setItemMeta(fletchMeta);
-
-        final Player p = (Player) e.getWhoClicked();
+        ItemStackUtil.setDisplayName(fletch, ChatColor.YELLOW + "Click To Fletch Your Custom Arrow!");
 
         Inventory inv = e.getInventory();
+
+        ItemStack toUpgradeGUI = new ItemStack(Material.PAPER);
+        ItemStackUtil.setDisplayName(toUpgradeGUI, ChatColor.BLUE + "Click To Jump To Upgrade Page");
 
 
         ItemStack arrowSlot = inv.getItem(13);
@@ -62,7 +65,6 @@ public class ClickEvent implements Listener {
 
         // Fletch
         if (clickedItem.isSimilar(fletch)) {
-            // 10, 13, 16
             if (materialSlot != null && arrowSlot != null && arrowheadSlot != null) {
                 int arrowAm = arrowSlot.getAmount();
                 int materialAm = materialSlot.getAmount();
@@ -85,6 +87,9 @@ public class ClickEvent implements Listener {
                     }
                 }
             }
+        } else if (clickedItem.isSimilar(toUpgradeGUI)) {
+            FletchingTableGUI.openUpgradeGUI(e.getWhoClicked());
+            PlayerUtil.sendDebugMessage(p, "Opening Upgrade GUI.");
         }
     }
     private static void setResult(Inventory inv, ItemStack result, int amount) {

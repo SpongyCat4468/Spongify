@@ -1,17 +1,18 @@
 package me.spongycat.spongify.listeners.FletchingGUI;
 
-import org.bukkit.Material;
+import me.spongycat.spongify.GUI.FletchingTableGUI;
+import me.spongycat.spongify.util.PlayerUtil;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryDragEvent;
-import org.bukkit.inventory.ItemStack;
 
 
 public class DragEvent implements Listener {
     @EventHandler
     public void onInventoryDrag(InventoryDragEvent e) {
-        if (e.getInventory().containsAtLeast(new ItemStack(Material.GREEN_STAINED_GLASS_PANE), 40)) {
+        if (e.getWhoClicked().getOpenInventory().getTopInventory() == FletchingTableGUI.getGUI()) {
             e.setCancelled(true);
+            PlayerUtil.sendDebugMessage(e.getWhoClicked(), "Drag Event cancelled.");
         }
     }
 }
