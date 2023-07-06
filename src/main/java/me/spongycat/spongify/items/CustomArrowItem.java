@@ -2,9 +2,9 @@ package me.spongycat.spongify.items;
 
 import me.spongycat.spongify.util.ItemStackUtil;
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.Color;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionType;

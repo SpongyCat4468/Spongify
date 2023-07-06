@@ -11,7 +11,7 @@ import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.*;
+import java.util.ArrayList;
 
 public class RottenFleshToLeatherRecipe {
     public static void registerRecipe() {
