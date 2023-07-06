@@ -11,7 +11,7 @@ import org.bukkit.inventory.Inventory;
 public class CloseEvent implements Listener {
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent e) {
-        if (e.getView().getTopInventory() == FletchingTableGUI.getGUI()) {
+        if (FletchingTableGUI.isFletchingGUI(e.getInventory())) {
             PlayerUtil.sendDebugMessage(e.getPlayer(), "You have closed the fletching table.");
             Inventory inv = e.getInventory();
             if (e.getPlayer() instanceof Player p) {

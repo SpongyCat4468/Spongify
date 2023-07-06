@@ -1,7 +1,7 @@
 package me.spongycat.spongify.util;
 
-import me.spongycat.spongify.commands.SpongifyCommand;
-import me.spongycat.spongify.commands.SpongifyTabComplete;
+import me.spongycat.spongify.commands.SpongifyCommand.SpongifyCommand;
+import me.spongycat.spongify.commands.SpongifyCommand.SpongifyTabComplete;
 import me.spongycat.spongify.enchants.AutoReplantEnchantment;
 import me.spongycat.spongify.enchants.SmeltingTouchEnchantment;
 import me.spongycat.spongify.listeners.*;
@@ -21,7 +21,7 @@ import java.util.logging.Level;
 import static me.spongycat.spongify.Spongify.plugin;
 import static org.bukkit.Bukkit.getServer;
 
-public class Setup {
+public class SetupUtil {
     public static me.spongycat.spongify.enchants.AutoReplantEnchantment autoReplantEnchantment;
     public static me.spongycat.spongify.enchants.SmeltingTouchEnchantment smeltingTouchEnchantment;
     public static void enable() {
@@ -110,6 +110,13 @@ public class Setup {
         // Custom Arrow
         plugin.getServer().getPluginManager().registerEvents(new CustomArrowListener(), plugin);
         getServer().getLogger().log(Level.INFO, "[Spongify] Custom Arrows Registered");
+
+        // Custom Staff
+        plugin.getServer().getPluginManager().registerEvents(new CustomStaffListener(), plugin);
+        getServer().getLogger().log(Level.INFO, "[Spongify] Custom Staff Registered");
+
+        // Lava Survival
+        plugin.getServer().getPluginManager().registerEvents(new LavaSurvivalListener(), plugin);
     }
     public static void disable() {
         try {

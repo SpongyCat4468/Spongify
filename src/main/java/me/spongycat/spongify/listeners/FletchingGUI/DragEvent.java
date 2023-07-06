@@ -10,7 +10,7 @@ import org.bukkit.event.inventory.InventoryDragEvent;
 public class DragEvent implements Listener {
     @EventHandler
     public void onInventoryDrag(InventoryDragEvent e) {
-        if (e.getWhoClicked().getOpenInventory().getTopInventory() == FletchingTableGUI.getGUI()) {
+        if (FletchingTableGUI.isFletchingGUI(e.getInventory())) {
             e.setCancelled(true);
             PlayerUtil.sendDebugMessage(e.getWhoClicked(), "Drag Event cancelled.");
         }

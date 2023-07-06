@@ -1,4 +1,4 @@
-package me.spongycat.spongify.commands;
+package me.spongycat.spongify.commands.SpongifyCommand;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -18,6 +18,7 @@ public class SpongifyTabComplete implements TabCompleter{
             completions.add("about");
             completions.add("give");
             completions.add("reload");
+            completions.add("lavasurvival");
         } else if (args.length == 2 && Objects.equals(args[0], "give")) {
             // Misc
             completions.add("DiamondCore");
@@ -29,7 +30,7 @@ public class SpongifyTabComplete implements TabCompleter{
             completions.add("SaradominHilt");
             completions.add("GuthixHilt");
             completions.add("ArmadylHilt");
-            completions.add("ZamorackHilt");
+            completions.add("ZamorakHilt");
             completions.add("GodSwordBlade");
             completions.add("SaradominGodSword");
             completions.add("GuthixGodSword");
@@ -51,6 +52,14 @@ public class SpongifyTabComplete implements TabCompleter{
             completions.add("SaradominArrowhead");
             completions.add("ZamorakArrowhead");
             completions.add("ZarosArrowhead");
+            // Custom Staff
+            completions.add("ChaosStaff");
+            completions.add("TeleportStaff");
+            completions.add("JudgementStaff");
+            completions.add("ShallNotPassStaff");
+            completions.add("HolyStaff");
+        } else if (args.length == 2 && Objects.equals(args[0], "lavasurvival")) {
+            completions.add("spawnHolo");
         }
         return completions;
     }

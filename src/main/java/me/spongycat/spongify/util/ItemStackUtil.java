@@ -2,6 +2,7 @@ package me.spongycat.spongify.util;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -49,6 +50,12 @@ public class ItemStackUtil {
         }
         meta.setLore(loreList);
         item.setItemMeta(meta);
+    }
+
+    public static void hideEnchant(ItemStack item) {
+        ItemMeta itemMeta = item.getItemMeta();
+        itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(itemMeta);
     }
 
 

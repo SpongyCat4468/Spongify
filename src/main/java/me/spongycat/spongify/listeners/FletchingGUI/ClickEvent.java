@@ -2,6 +2,7 @@ package me.spongycat.spongify.listeners.FletchingGUI;
 
 import me.spongycat.spongify.GUI.FletchingTableGUI;
 import me.spongycat.spongify.items.CustomArrowItem;
+import me.spongycat.spongify.items.Item;
 import me.spongycat.spongify.util.ItemStackUtil;
 import me.spongycat.spongify.util.PlayerUtil;
 import org.bukkit.ChatColor;
@@ -12,49 +13,54 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.Arrays;
+import java.util.List;
+
 import static me.spongycat.spongify.util.ItemStackUtil.isSimilarItem;
 import static me.spongycat.spongify.util.ItemStackUtil.isSimilarMaterial;
 
 public class ClickEvent implements Listener {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
+        PlayerUtil.sendDebugMessage(e.getWhoClicked(), "Clicked");
 
-        ItemStack armadylArrowhead = CustomArrowItem.getArmadylArrowhead();
-        ItemStack guthixArrowhead = CustomArrowItem.getGuthixArrowhead();
-        ItemStack saradominArrowhead = CustomArrowItem.getSaradominArrowhead();
-        ItemStack zarosArrowhead = CustomArrowItem.getZarosArrowhead();
-        ItemStack zamorakArrowhead = CustomArrowItem.getZamorakArrowhead();
-        ItemStack diamondArrowhead = CustomArrowItem.getDiamondArrowhead();
-        ItemStack netheriteArrowhead = CustomArrowItem.getNetheriteArrowhead();
+        ItemStack fletch = new ItemStack(Material.RED_STAINED_GLASS_PANE);
+        ItemStackUtil.setDisplayName(fletch, ChatColor.YELLOW + "Click To Fletch Your Custom Arrow!");
 
         final ItemStack clickedItem = e.getCurrentItem();
-        if (e.getClickedInventory() != FletchingTableGUI.getGUI()) return;
+        if (!FletchingTableGUI.isFletchingGUI(e.getInventory())) return;
+        PlayerUtil.sendDebugMessage(e.getWhoClicked(), "GUI is fletching table");
 
         final Player p = (Player) e.getWhoClicked();
 
         if (clickedItem == null || clickedItem.getType() == Material.AIR) return;
 
-        if (!(isSimilarMaterial(clickedItem, Material.FIRE_CHARGE)||
-                isSimilarMaterial(clickedItem, Material.ARROW) ||
-                isSimilarMaterial(clickedItem, Material.TIPPED_ARROW) ||
-                isSimilarMaterial(clickedItem, Material.ENDER_PEARL) ||
-                isSimilarMaterial(clickedItem, Material.PHANTOM_MEMBRANE) ||
-                isSimilarMaterial(clickedItem, Material.WITHER_ROSE) ||
-                isSimilarMaterial(clickedItem, Material.FLINT) ||
-                isSimilarMaterial(clickedItem, Material.BLAZE_ROD) ||
-                isSimilarMaterial(clickedItem, Material.NETHERITE_INGOT) ||
-                isSimilarMaterial(clickedItem, Material.DIAMOND))) {
-            e.setCancelled(true);
-            PlayerUtil.sendDebugMessage(p, "Click event has been cancelled.");
+        List<Material> fletchingMaterial = Arrays.asList(
+                Material.FIRE_CHARGE,
+                Material.ARROW,
+                Material.TIPPED_ARROW,
+                Material.ENDER_PEARL,
+                Material.PHANTOM_MEMBRANE,
+                Material.WITHER_ROSE,
+                Material.FLINT,
+                Material.BLAZE_ROD,
+                Material.NETHERITE_INGOT,
+                Material.DIAMOND
+        );
+
+
+        boolean isFletchingMaterial = fletchingMaterial.contains(clickedItem.getType());
+
+
+        if (FletchingTableGUI.isFletchingGUI(e.getInventory())) {
+            if (!isFletchingMaterial) {
+                e.setCancelled(true);
+                PlayerUtil.sendDebugMessage(p, "Click event has been cancelled. (Fletching GUI)");
+            }
         }
 
-        ItemStack fletch = new ItemStack(Material.RED_STAINED_GLASS_PANE);
-        ItemStackUtil.setDisplayName(fletch, ChatColor.YELLOW + "Click To Fletch Your Custom Arrow!");
-
         Inventory inv = e.getInventory();
-
-        ItemStack toUpgradeGUI = new ItemStack(Material.PAPER);
-        ItemStackUtil.setDisplayName(toUpgradeGUI, ChatColor.BLUE + "Click To Jump To Upgrade Page");
 
 
         ItemStack arrowSlot = inv.getItem(13);
@@ -70,26 +76,23 @@ public class ClickEvent implements Listener {
                 int materialAm = materialSlot.getAmount();
                 int arrowheadAm = materialSlot.getAmount();
                 if (arrowSlot.getType() == Material.ARROW) {
-                    if (isSimilarMaterial(materialSlot, Material.FIRE_CHARGE) && isSimilarItem(arrowheadSlot, zamorakArrowhead)) {
+                    if (isSimilarMaterial(materialSlot, Material.FIRE_CHARGE) && isSimilarItem(arrowheadSlot, Item.ZAMORAK_ARROWHEAD)) {
                         setResult(inv, CustomArrowItem.getExplosiveArrow(), getResultAmount(arrowAm, materialAm, arrowheadAm));
-                    } else if (isSimilarMaterial(materialSlot, Material.ENDER_PEARL) && isSimilarItem(arrowheadSlot, guthixArrowhead)) {
+                    } else if (isSimilarMaterial(materialSlot, Material.ENDER_PEARL) && isSimilarItem(arrowheadSlot, Item.GUTHIX_ARROWHEAD)) {
                         setResult(inv, CustomArrowItem.getTeleportArrow(), getResultAmount(arrowAm, materialAm, arrowheadAm));
-                    } else if (isSimilarMaterial(materialSlot, Material.PHANTOM_MEMBRANE) && isSimilarItem(arrowheadSlot, saradominArrowhead)) {
+                    } else if (isSimilarMaterial(materialSlot, Material.PHANTOM_MEMBRANE) && isSimilarItem(arrowheadSlot, Item.SARADOMIN_ARROWHEAD)) {
                         setResult(inv, CustomArrowItem.getLevitateArrow(), getResultAmount(arrowAm, materialAm, arrowheadAm));
-                    } else if (isSimilarMaterial(materialSlot, Material.WITHER_ROSE) && isSimilarItem(arrowheadSlot, zarosArrowhead)) {
+                    } else if (isSimilarMaterial(materialSlot, Material.WITHER_ROSE) && isSimilarItem(arrowheadSlot, Item.ZAROS_ARROWHEAD)) {
                         setResult(inv, CustomArrowItem.getWitherArrow(), getResultAmount(arrowAm, materialAm, arrowheadAm));
-                    } else if (isSimilarMaterial(materialSlot, Material.BLAZE_ROD) && isSimilarItem(arrowheadSlot, armadylArrowhead)) {
+                    } else if (isSimilarMaterial(materialSlot, Material.BLAZE_ROD) && isSimilarItem(arrowheadSlot, Item.ARMADYL_ARROWHEAD)) {
                         setResult(inv, CustomArrowItem.getLightningArrow(), getResultAmount(arrowAm, materialAm, arrowheadAm));
-                    } else if (isSimilarMaterial(materialSlot, Material.DIAMOND) && isSimilarItem(arrowheadSlot, diamondArrowhead)) {
+                    } else if (isSimilarMaterial(materialSlot, Material.DIAMOND) && isSimilarItem(arrowheadSlot, Item.DIAMOND_ARROWHEAD)) {
                         setResult(inv, CustomArrowItem.getDiamondArrow(), getResultAmount(arrowAm, materialAm, arrowheadAm));
-                    } else if (isSimilarMaterial(materialSlot, Material.NETHERITE_INGOT) && isSimilarItem(arrowheadSlot, netheriteArrowhead)) {
+                    } else if (isSimilarMaterial(materialSlot, Material.NETHERITE_INGOT) && isSimilarItem(arrowheadSlot, Item.NETHERITE_ARROWHEAD)) {
                         setResult(inv, CustomArrowItem.getNetheriteArrow(), getResultAmount(arrowAm, materialAm, arrowheadAm));
                     }
                 }
             }
-        } else if (clickedItem.isSimilar(toUpgradeGUI)) {
-            FletchingTableGUI.openUpgradeGUI(e.getWhoClicked());
-            PlayerUtil.sendDebugMessage(p, "Opening Upgrade GUI.");
         }
     }
     private static void setResult(Inventory inv, ItemStack result, int amount) {

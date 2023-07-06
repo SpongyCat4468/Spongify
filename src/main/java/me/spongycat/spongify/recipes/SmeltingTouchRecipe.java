@@ -1,5 +1,6 @@
 package me.spongycat.spongify.recipes;
 
+import me.spongycat.spongify.items.Item;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -19,30 +20,15 @@ import static me.spongycat.spongify.Spongify.smeltingTouchEnchantment;
 public class SmeltingTouchRecipe implements Listener {
 
     public static void registerRecipe() {
-        ItemStack ore = new ItemStack(Material.ENCHANTED_BOOK, 1);
-        ItemMeta meta2 = ore.getItemMeta();
-        ArrayList<String> lore2 = new ArrayList<>();
-        lore2.add(ChatColor.GOLD + "Smelting Touch I");
-        meta2.setLore(lore2);
-        ore.setItemMeta(meta2);
 
-        ItemStack superDiamond = new ItemStack(Material.DIAMOND_BLOCK, 1);
-        superDiamond.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 10);
-        ItemMeta meta3 = superDiamond.getItemMeta();
-        ArrayList<String> lore3 = new ArrayList<>();
-        lore3.add(ChatColor.GOLD + "Diamond core combined with totem power");
-        meta3.setLore(lore3);
-        meta3.setDisplayName(ChatColor.LIGHT_PURPLE + "Diamond Core");
-        superDiamond.setItemMeta(meta3);
-
-        ShapedRecipe diamondRecipe = new ShapedRecipe(new NamespacedKey(plugin, "diamond"), superDiamond);
+        ShapedRecipe diamondRecipe = new ShapedRecipe(new NamespacedKey(plugin, "diamond"), Item.DIAMOND_CORE);
         diamondRecipe.shape("XXX", "XAX", "XXX");
         diamondRecipe.setIngredient('X', Material.DIAMOND_BLOCK);
         diamondRecipe.setIngredient('A', Material.TOTEM_OF_UNDYING);
 
-        RecipeChoice.ExactChoice diamondChoice = new RecipeChoice.ExactChoice(superDiamond);
+        RecipeChoice.ExactChoice diamondChoice = new RecipeChoice.ExactChoice(Item.DIAMOND_CORE);
 
-        ShapedRecipe oreRecipe = new ShapedRecipe(new NamespacedKey(plugin, "ore"), ore);
+        ShapedRecipe oreRecipe = new ShapedRecipe(new NamespacedKey(plugin, "ore"), Item.SMELTING_TOUCH_BOOK);
         oreRecipe.shape("XAX", "ABA", "XAX");
         oreRecipe.setIngredient('X', Material.BLAST_FURNACE);
         oreRecipe.setIngredient('A', diamondChoice);
@@ -55,33 +41,15 @@ public class SmeltingTouchRecipe implements Listener {
 
     }
 
-    public static ItemStack getSmeltingTouchBook() {
-        ItemStack ore = new ItemStack(Material.ENCHANTED_BOOK, 1);
-        ItemMeta meta2 = ore.getItemMeta();
-        ArrayList<String> lore2 = new ArrayList<>();
-        lore2.add(ChatColor.GOLD + "Smelting Touch I");
-        meta2.setLore(lore2);
-        ore.setItemMeta(meta2);
-
-        return ore;
-    }
-
     @EventHandler
     public void onPrepareSmithing(PrepareSmithingEvent event) {
         NamespacedKey key = new NamespacedKey(plugin, "custom_smithing_recipe");
         Bukkit.removeRecipe(key);
         ItemStack[] items = event.getInventory().getContents();
 
-        ItemStack ore = new ItemStack(Material.ENCHANTED_BOOK, 1);
-        ItemMeta meta2 = ore.getItemMeta();
-        ArrayList<String> lore2 = new ArrayList<>();
-        lore2.add(ChatColor.GOLD + "Smelting Touch I");
-        meta2.setLore(lore2);
-        ore.setItemMeta(meta2);
-
         if (plugin.getConfig().getBoolean("Allow_Adding_Smelting_Enchant")) {
             if (items[0] != null && items[1] != null) {
-                if (items[0].getType() == Material.NETHERITE_PICKAXE && items[1].isSimilar(ore) && items[1].getAmount() == 1) {
+                if (items[0].getType() == Material.NETHERITE_PICKAXE && items[1].isSimilar(Item.SMELTING_TOUCH_BOOK) && items[1].getAmount() == 1) {
                     ItemStack result = items[0];
                     ItemMeta meta3 = items[0].getItemMeta();
                     ArrayList<String> lore3 = new ArrayList<>();
@@ -108,7 +76,7 @@ public class SmeltingTouchRecipe implements Listener {
                     // Register the recipe with the server
                     Bukkit.getServer().addRecipe(recipe);
 
-                } else if (items[0].getType() == Material.NETHERITE_SHOVEL && items[1].isSimilar(ore) && items[1].getAmount() == 1) {
+                } else if (items[0].getType() == Material.NETHERITE_SHOVEL && items[1].isSimilar(Item.SMELTING_TOUCH_BOOK) && items[1].getAmount() == 1) {
                     ItemStack result = items[0];
                     ItemMeta meta3 = items[0].getItemMeta();
                     ArrayList<String> lore3 = new ArrayList<>();
@@ -135,7 +103,7 @@ public class SmeltingTouchRecipe implements Listener {
                     // Register the recipe with the server
                     Bukkit.getServer().addRecipe(recipe);
 
-                } else if (items[0].getType() == Material.NETHERITE_HOE && items[1].isSimilar(ore) && items[1].getAmount() == 1) {
+                } else if (items[0].getType() == Material.NETHERITE_HOE && items[1].isSimilar(Item.SMELTING_TOUCH_BOOK) && items[1].getAmount() == 1) {
                     ItemStack result = items[0];
                     ItemMeta meta3 = items[0].getItemMeta();
                     ArrayList<String> lore3 = new ArrayList<>();
@@ -178,5 +146,16 @@ public class SmeltingTouchRecipe implements Listener {
         superDiamond.setItemMeta(meta3);
 
         return superDiamond;
+    }
+
+    public static ItemStack getSmeltingTouchBook() {
+        ItemStack ore = new ItemStack(Material.ENCHANTED_BOOK, 1);
+        ItemMeta meta2 = ore.getItemMeta();
+        ArrayList<String> lore2 = new ArrayList<>();
+        lore2.add(ChatColor.GOLD + "Smelting Touch I");
+        meta2.setLore(lore2);
+        ore.setItemMeta(meta2);
+
+        return ore;
     }
 }

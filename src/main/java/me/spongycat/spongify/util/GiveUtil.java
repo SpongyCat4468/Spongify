@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
-public class Give {
+public class GiveUtil {
     public static void givePlayer(Player p, ItemStack itemStack, int amount, String name) {
         PlayerInventory PI = p.getInventory();
         itemStack.setAmount(amount);

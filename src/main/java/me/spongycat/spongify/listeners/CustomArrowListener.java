@@ -1,7 +1,8 @@
 package me.spongycat.spongify.listeners;
 
 import me.spongycat.spongify.items.CustomArrowItem;
-import me.spongycat.spongify.util.Give;
+import me.spongycat.spongify.items.Item;
+import me.spongycat.spongify.util.GiveUtil;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -192,15 +193,15 @@ public class CustomArrowListener implements Listener {
     public void onBlockBreak(BlockBreakEvent e) {
         if (e.getBlock().getType() == Material.DIAMOND_ORE && isNaturallyGenerated(e.getBlock())) {
             if (drop(plugin.getConfig().getInt("Diamond_Ore"))) {
-                Give.givePlayer(e.getPlayer(), CustomArrowItem.getDiamondArrowhead(), 1, "Diamond Arrowhead");
+                GiveUtil.givePlayer(e.getPlayer(), CustomArrowItem.getDiamondArrowhead(), 1, "Diamond Arrowhead");
             }
         } else if (e.getBlock().getType() == Material.DEEPSLATE_DIAMOND_ORE && isNaturallyGenerated(e.getBlock())) {
             if (drop(plugin.getConfig().getInt("Diamond_Ore"))) {
-                Give.givePlayer(e.getPlayer(), CustomArrowItem.getDiamondArrowhead(), 1, "Diamond Arrowhead");
+                GiveUtil.givePlayer(e.getPlayer(), CustomArrowItem.getDiamondArrowhead(), 1, "Diamond Arrowhead");
             }
         } else if (e.getBlock().getType() == Material.ANCIENT_DEBRIS && isNaturallyGenerated(e.getBlock())) {
             if (drop(plugin.getConfig().getInt("Ancient_Debris"))) {
-                Give.givePlayer(e.getPlayer(), CustomArrowItem.getNetheriteArrowhead(), 1, "Netherite Arrowhead");
+                GiveUtil.givePlayer(e.getPlayer(), CustomArrowItem.getNetheriteArrowhead(), 1, "Netherite Arrowhead");
             }
         }
     }
@@ -242,10 +243,10 @@ public class CustomArrowListener implements Listener {
 
         // Check if the offhand item is a bow or crossbow and the mainhand item is an arrow
         if ((offHandItem.getType() == Material.BOW || offHandItem.getType() == Material.CROSSBOW)
-                && mainHandItem.isSimilar(CustomArrowItem.getExplosiveArrow())) {
+                && mainHandItem.isSimilar(Item.EXPLOSIVE_ARROW)) {
             return true;
         } else if ((mainHandItem.getType() == Material.BOW || mainHandItem.getType() == Material.CROSSBOW)
-                && offHandItem.isSimilar(CustomArrowItem.getExplosiveArrow())) {
+                && offHandItem.isSimilar(Item.EXPLOSIVE_ARROW)) {
             return true;
         }
         return false;
@@ -256,10 +257,10 @@ public class CustomArrowListener implements Listener {
 
         // Check if the offhand item is a bow or crossbow and the mainhand item is an arrow
         if ((offHandItem.getType() == Material.BOW || offHandItem.getType() == Material.CROSSBOW)
-                && mainHandItem.isSimilar(CustomArrowItem.getTeleportArrow())) {
+                && mainHandItem.isSimilar(Item.TELEPORT_ARROW)) {
             return true;
         } else if ((mainHandItem.getType() == Material.BOW || mainHandItem.getType() == Material.CROSSBOW)
-                && offHandItem.isSimilar(CustomArrowItem.getTeleportArrow())) {
+                && offHandItem.isSimilar(Item.TELEPORT_ARROW)) {
             return true;
         }
         return false;
@@ -270,10 +271,10 @@ public class CustomArrowListener implements Listener {
 
         // Check if the offhand item is a bow or crossbow and the mainhand item is an arrow
         if ((offHandItem.getType() == Material.BOW || offHandItem.getType() == Material.CROSSBOW)
-                && mainHandItem.isSimilar(CustomArrowItem.getLevitateArrow())) {
+                && mainHandItem.isSimilar(Item.LEVITATE_ARROW)) {
             return true;
         } else if ((mainHandItem.getType() == Material.BOW || mainHandItem.getType() == Material.CROSSBOW)
-                && offHandItem.isSimilar(CustomArrowItem.getLevitateArrow())) {
+                && offHandItem.isSimilar(Item.LEVITATE_ARROW)) {
             return true;
         }
         return false;
@@ -284,10 +285,10 @@ public class CustomArrowListener implements Listener {
 
         // Check if the offhand item is a bow or crossbow and the mainhand item is an arrow
         if ((offHandItem.getType() == Material.BOW || offHandItem.getType() == Material.CROSSBOW)
-                && mainHandItem.isSimilar(CustomArrowItem.getWitherArrow())) {
+                && mainHandItem.isSimilar(Item.WITHER_ARROW)) {
             return true;
         } else if ((mainHandItem.getType() == Material.BOW || mainHandItem.getType() == Material.CROSSBOW)
-                && offHandItem.isSimilar(CustomArrowItem.getWitherArrow())) {
+                && offHandItem.isSimilar(Item.WITHER_ARROW)) {
             return true;
         }
         return false;
@@ -298,10 +299,10 @@ public class CustomArrowListener implements Listener {
 
         // Check if the offhand item is a bow or crossbow and the mainhand item is an arrow
         if ((offHandItem.getType() == Material.BOW || offHandItem.getType() == Material.CROSSBOW)
-                && mainHandItem.isSimilar(CustomArrowItem.getLightningArrow())) {
+                && mainHandItem.isSimilar(Item.LIGHTNING_ARROW)) {
             return true;
         } else if ((mainHandItem.getType() == Material.BOW || mainHandItem.getType() == Material.CROSSBOW)
-                && offHandItem.isSimilar(CustomArrowItem.getLightningArrow())) {
+                && offHandItem.isSimilar(Item.LIGHTNING_ARROW)) {
             return true;
         }
         return false;
@@ -312,10 +313,10 @@ public class CustomArrowListener implements Listener {
 
         // Check if the offhand item is a bow or crossbow and the mainhand item is an arrow
         if ((offHandItem.getType() == Material.BOW || offHandItem.getType() == Material.CROSSBOW)
-                && mainHandItem.isSimilar(CustomArrowItem.getNetheriteArrow())) {
+                && mainHandItem.isSimilar(Item.NETHERITE_ARROW)) {
             return true;
         } else if ((mainHandItem.getType() == Material.BOW || mainHandItem.getType() == Material.CROSSBOW)
-                && offHandItem.isSimilar(CustomArrowItem.getNetheriteArrow())) {
+                && offHandItem.isSimilar(Item.NETHERITE_ARROW)) {
             return true;
         }
         return false;
@@ -326,10 +327,10 @@ public class CustomArrowListener implements Listener {
 
         // Check if the offhand item is a bow or crossbow and the mainhand item is an arrow
         if ((offHandItem.getType() == Material.BOW || offHandItem.getType() == Material.CROSSBOW)
-                && mainHandItem.isSimilar(CustomArrowItem.getDiamondArrow())) {
+                && mainHandItem.isSimilar(Item.DIAMOND_ARROW)) {
             return true;
         } else if ((mainHandItem.getType() == Material.BOW || mainHandItem.getType() == Material.CROSSBOW)
-                && offHandItem.isSimilar(CustomArrowItem.getDiamondArrow())) {
+                && offHandItem.isSimilar(Item.DIAMOND_ARROW)) {
             return true;
         }
         return false;
