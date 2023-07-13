@@ -7,29 +7,29 @@
 # ---------------------------- #
 
 # Tillable Mycelium
-Mycelium_Tillable: true
+Tillable_Mycelium:
+  - Enable: true
 
 # Auto Replant Enchant
-Allow_Hoe_Crafting: true
+Auto_Replant_Enchant:
+  - Enable: true
 
 # Compressed Crop
-Allow_Compressed_Crafting: true
+Compressed_Crops_Crafting: true
 
 # Smelting Touch
-Allow_Book_Crafting: true
-Allow_Adding_Smelting_Enchant: true
-Enable_Smelting_Touch: true
+Smelting_Touch:
+  - Crafting: true
+  - Allow_Adding_Enchant: true
+  - Enable_Enchant: true
 
 # Armor Stand with Arms
-Enabled: true
+Armor_Stand_With_Arms: true
 
 # Bundle
-Recipe_Enabled: true
-
-# Command
-# /spongify
-Command_Enabled: true
+Allow_Bundle_Crafting: true
 
 # Mineral Arrowhead (%)
-Diamond_Ore: 1
-Ancient_Debris: 5
+Custom_Arrowhead:
+  - Diamond_Ore: 1
+  - Ancient_Debris: 5

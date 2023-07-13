@@ -1,135 +1,219 @@
 package me.spongycat.spongify.listeners;
 
+import com.olziedev.playerwarps.api.PlayerWarpsAPI;
+import com.olziedev.playerwarps.api.warp.Warp;
 import eu.decentsoftware.holograms.api.DHAPI;
 import eu.decentsoftware.holograms.api.actions.ClickType;
 import eu.decentsoftware.holograms.api.holograms.Hologram;
 import eu.decentsoftware.holograms.event.HologramClickEvent;
+import me.spongycat.spongify.util.GiveUtil;
+import me.spongycat.spongify.util.PlayerUtil;
 import org.bukkit.*;
-import org.bukkit.block.Block;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarStyle;
+import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.scheduler.BukkitScheduler;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 import static me.spongycat.spongify.Spongify.plugin;
 
 public class LavaSurvivalListener implements Listener {
-    private Queue<Player> playerQueue = new LinkedList<>();
-    private boolean gameStarted = false;
-    private int minPlayers = 2;
-
-    private final int boxX = 100; // Example coordinates
-    private final int boxY = 100;
-    private final int boxZ = 100;
-
-    public static List<Hologram> hologramList = new ArrayList<>();
+    private static List<Player> playerQueue = new ArrayList<>();
+    public static boolean isGameStarted = false;
+    private static Server server;
+    private static List<Player> alivePlayers = new ArrayList<>();
+    private static int playerInGame;
+    private static boolean isCountDown = false;
+    private static Hologram hologram;
+    private Warp warp;
 
     @EventHandler
-    public void onInteractHologram(HologramClickEvent event) {
-        Hologram hologram = event.getHologram();
-        // Check if the player interacted with the hologram
-        if (event.getClick() == ClickType.RIGHT && (hologramList.contains(hologram))) {
-            Player player = event.getPlayer();
-            if (!playerQueue.contains(player)) {
-                playerQueue.add(player);
-                player.sendMessage(ChatColor.GREEN + "You have been added to the lava survival queue!");
-                if (playerQueue.size() >= minPlayers) {
-                    for (Player player1 : playerQueue) {
-                        player1.sendMessage(ChatColor.YELLOW + "Lava survival starting in 5");
-                        player1.sendMessage(ChatColor.YELLOW + "Lava survival starting in 4");
-                        player1.sendMessage(ChatColor.YELLOW + "Lava survival starting in 3");
-                        player1.sendMessage(ChatColor.YELLOW + "Lava survival starting in 2");
-                        player1.sendMessage(ChatColor.YELLOW + "Lava survival starting in 1");
-                        startGame();
-                    }
-                }
+    public void onInteractHolo(HologramClickEvent e){
+        server = Bukkit.getServer();
+        PlayerUtil.sendDebugMessage(e.getPlayer(), "Holo interacted");
+        if (Objects.equals(e.getHologram().getName(), "Lava_Survival") && e.getClick() == ClickType.RIGHT) {
+            PlayerUtil.sendDebugMessage(e.getPlayer(), "Starting");
+            if (playerQueue.contains(e.getPlayer())) {
+                playerQueue.remove(e.getPlayer());
+                e.getPlayer().sendMessage(ChatColor.RED + "You have been removed from the queue!");
+                server.broadcastMessage(ChatColor.LIGHT_PURPLE + e.getPlayer().getDisplayName() + " has left the lava survival queue!");
             } else {
-                playerQueue.remove(player);
-                player.sendMessage(ChatColor.RED + "You have been removed from the lava survival queue!");
+                playerQueue.add(e.getPlayer());
+                e.getPlayer().sendMessage(ChatColor.GREEN + "You have been added to the queue!");
+                server.broadcastMessage(ChatColor.LIGHT_PURPLE + e.getPlayer().getDisplayName() + " has joined the lava survival queue!");
             }
-        }
-    }
+            if (playerQueue.size() >= 1 && !isCountDown) {
+                isCountDown = true;
+                startCountdown();
+                BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
+                int delay = 0;
+                boolean isQueueFull = playerQueue.size() >= 1;
 
-    private void startGame() {
-        gameStarted = true;
-
-        // Teleport players to the pre-made box
-        World world = Bukkit.getWorld("world");
-        int boxX = 100; // Example coordinates
-        int boxY = 100;
-        int boxZ = 100;
-
-        for (Player player : playerQueue) {
-            player.teleport(world.getBlockAt(boxX, boxY, boxZ).getLocation());
-            player.getInventory().addItem(new ItemStack(Material.WHITE_WOOL, 64));
-            // Add other necessary items to the player's inventory
-        }
-
-        // Start the countdown before lava falls
-        Bukkit.getScheduler().runTaskLater(plugin, this::startLavaFall, 20 * 30);
-    }
-
-    private void startLavaFall() {
-        // Start the lava falling from the top of the box
-        World world = Bukkit.getWorld("world");
-
-        // Code to make lava fall from the top of the box
-
-        // Schedule wool removal and winner determination
-        Bukkit.getScheduler().runTaskLater(plugin, this::resetAndEnd, 20 * 60 * 3);
-    }
-
-    private void resetAndEnd() {
-        // Remove wool blocks within the defined area
-        World world = Bukkit.getWorld("world");
-        int minX = 95; // Example coordinates
-        int minY = 95;
-        int minZ = 95;
-        int maxX = 105;
-        int maxY = 105;
-        int maxZ = 105;
-
-        for (int x = minX; x <= maxX; x++) {
-            for (int y = minY; y <= maxY; y++) {
-                for (int z = minZ; z <= maxZ; z++) {
-                    Block block = world.getBlockAt(x, y, z);
-                    if (block.getType() == Material.WHITE_WOOL) {
-                        block.setType(Material.AIR);
+                scheduler.runTaskLater(plugin, () -> {
+                    if (isQueueFull) {
+                        Bukkit.broadcastMessage(ChatColor.YELLOW + "Lava Survival Game starting in 60 seconds");
+                    } else {
+                        isCountDown = false;
+                        isGameStarted = false;
                     }
-                }
+                }, delay += 0);
+
+                scheduler.runTaskLater(plugin, () -> {
+                    if (isQueueFull) {
+                        Bukkit.broadcastMessage(ChatColor.YELLOW + "Lava Survival Game starting in 30 seconds");
+                    } else {
+                        isCountDown = false;
+                        isGameStarted = false;
+                    }
+                }, delay += 20 * 30);
+
+                scheduler.runTaskLater(plugin, () -> {
+                    if (isQueueFull) {
+                        Bukkit.broadcastMessage(ChatColor.YELLOW + "Lava Survival Game starting in 10 seconds");
+                    } else {
+                        isCountDown = false;
+                        isGameStarted = false;
+                    }
+                }, delay += 20 * 10);
+
+                scheduler.runTaskLater(plugin, () -> {
+                    if (isQueueFull) {
+                        Bukkit.broadcastMessage(ChatColor.YELLOW + "Lava Survival Game starting in 5 seconds");
+                    } else {
+                        isCountDown = false;
+                        isGameStarted = false;
+                    }
+                }, delay += 20 * 5);
+
+                scheduler.runTaskLater(plugin, () -> {
+                    if (isQueueFull) {
+                        Bukkit.broadcastMessage(ChatColor.YELLOW + "Lava Survival Game starting in 4 seconds");
+                    } else {
+                        isCountDown = false;
+                        isGameStarted = false;
+                    }
+                }, delay += 20);
+
+                scheduler.runTaskLater(plugin, () -> {
+                    if (isQueueFull) {
+                        Bukkit.broadcastMessage(ChatColor.YELLOW + "Lava Survival Game starting in 3 seconds");
+                    } else {
+                        isCountDown = false;
+                        isGameStarted = false;
+                    }
+                }, delay += 20);
+
+                scheduler.runTaskLater(plugin, () -> {
+                    if (isQueueFull) {
+                        Bukkit.broadcastMessage(ChatColor.YELLOW + "Lava Survival Game starting in 2 seconds");
+                    } else {
+                        isCountDown = false;
+                        isGameStarted = false;
+                    }
+                }, delay += 20);
+
+                scheduler.runTaskLater(plugin, () -> {
+                    if (isQueueFull) {
+                        Bukkit.broadcastMessage(ChatColor.YELLOW + "Lava Survival Game starting in 1 seconds");
+                    } else {
+                        isCountDown = false;
+                        isGameStarted = false;
+                    }
+                }, delay += 20);
+
+                scheduler.runTaskLater(plugin, () -> {
+                    Bukkit.broadcastMessage(ChatColor.YELLOW + "Lava Survival Game has started!");
+                    startGame();
+                    isCountDown = false;
+                }, delay + 20);
             }
         }
-
-        // Determine the winner
-        Player lastSurvivor = null;
-        for (Player player : playerQueue) {
-            if (player.getLocation().getBlockY() >= boxY) {
-                if (lastSurvivor == null || player.getLocation().getBlockY() > lastSurvivor.getLocation().getBlockY()) {
-                    lastSurvivor = player;
-                }
-            }
-        }
-
-        // Teleport the winner out and give rewards
-        if (lastSurvivor != null) {
-            lastSurvivor.sendMessage("Congratulations! You survived the lava survival game!");
-            // Give rewards to the winner
-        }
-
-        // Reset the game
+    }
+    public void startGame() {
+        alivePlayers.addAll(playerQueue);
+        playerInGame = playerQueue.size();
         playerQueue.clear();
-        gameStarted = false;
+        isGameStarted = true;
+        PlayerUtil.sendDebugMessage(Bukkit.getPlayerExact("SpongyTexas4468"), "Game Started");
+        PlayerWarpsAPI.getInstance(api -> warp = api.getPlayerWarp("LavaSurvival"));
+        if (warp == null) {
+            PlayerUtil.sendDebugMessage(Bukkit.getPlayerExact("SpongyTexas4468"), "PW null");
+            isGameStarted = false;
+            server.broadcastMessage("Lava Survival Location Invalid! Please set up a public warp with the name 'LavaSurvival'!");
+            return;
+        }
+        PlayerUtil.sendDebugMessage(Bukkit.getPlayerExact("SpongyTexas4468"), "?");
+        for (Player p : alivePlayers) {
+            PlayerUtil.sendDebugMessage(Bukkit.getPlayerExact("SpongyTexas4468"), "TP'ed!");
+            p.teleport(warp.getWarpLocation().getLocation());
+            GiveUtil.givePlayer(p, Material.WHITE_WOOL, 64, "White Wool");
+        }
     }
 
-    public static void addHologram(Location location, String name) {
-        if (DHAPI.getHologram("Lava_Survival") != null) {
-            DHAPI.removeHologram("Lava_Survival");
+    @EventHandler
+    public void onPlayerDeath(PlayerDeathEvent e) {
+        alivePlayers.remove(e.getEntity());
+        if (alivePlayers.contains(e.getEntity())) {
+            server.broadcastMessage(e.getEntity().getDisplayName() + " has died in the lava survival game! " + alivePlayers.size() + "/" + playerInGame + " players left.");
         }
-        List<String> line = Arrays.asList(ChatColor.YELLOW + "Lava Survival", ChatColor.AQUA + "Right click to join queue!");
-        Hologram hologram = DHAPI.createHologram(name, location, line);
-        hologramList.add(hologram);
+    }
+
+    public static void spawnHolo(Player p) {
+        List<String> lines = Arrays.asList(ChatColor.YELLOW + "Lava Survival", ChatColor.GRAY + "Interact with the hologram to join the queue!");
+        Location location = p.getLocation();
+        try {
+            hologram = DHAPI.createHologram("Lava_Survival", location, true, lines);
+        } catch (IllegalArgumentException e) {
+            DHAPI.moveHologram("Lava_Survival", location);
+            hologram = DHAPI.getHologram("Lava_Survival");
+        }
+    }
+
+    public static void clearQueue() {
+        playerQueue.clear();
+        alivePlayers.clear();
+    }
+
+
+    public void startCountdown() {
+        BossBar bossBar = Bukkit.createBossBar("Lava Survival", BarColor.YELLOW, BarStyle.SOLID);
+        for (Player p : playerQueue) {
+            bossBar.addPlayer(p);
+        }
+        bossBar.setProgress(1.0); // Set the initial progress to full
+
+
+        Bukkit.getScheduler().runTaskTimer(plugin, () -> {
+            double progress = bossBar.getProgress();
+            if (progress < 1.0 / 60 || !isCountDown) {
+                progress = 0.0;
+                bossBar.setVisible(false);
+                for (Player p : playerQueue) {
+                    bossBar.removePlayer(p);
+                }
+                return;
+            }
+            progress -= 1.0 / 60.0; // Decrease the progress by 1/60 every second
+            bossBar.setProgress(progress);
+        }, 0L, 20L);
+    }
+
+    public static void endGame(Player p) {
+        playerQueue.clear();
+        isGameStarted = false;
+        alivePlayers.clear();
+        playerInGame = 0;
+        isCountDown = false;
+        server = Bukkit.getServer();
+        server.broadcastMessage( ChatColor.GOLD + "Lava Survival Game has ended by " + p.getDisplayName() + " with command!");
     }
 }
 

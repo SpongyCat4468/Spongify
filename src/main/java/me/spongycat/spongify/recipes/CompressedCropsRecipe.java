@@ -39,8 +39,7 @@ public class CompressedCropsRecipe {
     }
 
     public static ItemStack registerItem(Material material, int amount) {
-        ItemStack item = new ItemStack(material, amount);
-        return item;
+        return new ItemStack(material, amount);
     }
 
 

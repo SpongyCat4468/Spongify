@@ -60,6 +60,8 @@ public class SpongifyTabComplete implements TabCompleter{
             completions.add("HolyStaff");
         } else if (args.length == 2 && Objects.equals(args[0], "lavasurvival")) {
             completions.add("spawnHolo");
+            completions.add("clearQueue");
+            completions.add("endGame");
         }
         return completions;
     }

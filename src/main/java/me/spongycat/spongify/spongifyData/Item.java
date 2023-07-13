@@ -1,7 +1,11 @@
-package me.spongycat.spongify.items;
+package me.spongycat.spongify.spongifyData;
 
+import me.spongycat.spongify.items.CustomArrowItem;
+import me.spongycat.spongify.items.CustomStaffItem;
+import me.spongycat.spongify.items.GodSwordItem;
 import me.spongycat.spongify.recipes.AutoReplantRecipe;
 import me.spongycat.spongify.recipes.SmeltingTouchRecipe;
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 public class Item {
@@ -43,4 +47,5 @@ public class Item {
     public static ItemStack DIAMOND_CORE = SmeltingTouchRecipe.getDiamondCore();
     public static ItemStack SMELTING_TOUCH_BOOK = SmeltingTouchRecipe.getSmeltingTouchBook();
 
+    public static ItemStack BUNDLE = new ItemStack(Material.BUNDLE);
 }

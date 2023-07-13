@@ -10,6 +10,7 @@ import me.spongycat.spongify.listeners.FletchingGUI.CloseEvent;
 import me.spongycat.spongify.listeners.FletchingGUI.DragEvent;
 import me.spongycat.spongify.listeners.FletchingGUI.InteractEvent;
 import me.spongycat.spongify.recipes.*;
+import me.spongycat.spongify.spongifyData.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
@@ -30,7 +31,7 @@ public class SetupUtil {
         plugin.getServer().getLogger().log(Level.INFO, "[Spongify] Tillable Mycelium Enabled");
 
         // Armor Stand With Arms
-        if (plugin.getConfig().getBoolean("Enabled")) {
+        if (Config.IS_ARMOR_STAND_WITH_ARM) {
             plugin.getServer().getPluginManager().registerEvents(new ArmorStandPlaceListener(), plugin);
             plugin.getServer().getLogger().log(Level.INFO, "[Spongify] Armor Stand with Arms Enabled");
         }
@@ -42,7 +43,7 @@ public class SetupUtil {
 
         // Auto Replant Enchant
         autoReplantEnchantment = new AutoReplantEnchantment("auto_replant");
-        if (plugin.getConfig().getBoolean("Allow_Hoe_Crafting")) {
+        if (Config.CAN_CRAFT_AUTO_REPLANT) {
             AutoReplantRecipe.registerRecipe();
         }
         registerEnchantment(autoReplantEnchantment);
@@ -50,15 +51,17 @@ public class SetupUtil {
         getServer().getLogger().log(Level.INFO, "[Spongify] Auto Replant Enchant Registered");
 
         // Smelting Touch Enchant
-        smeltingTouchEnchantment = new SmeltingTouchEnchantment("smelting_touch");
-        registerEnchantment(smeltingTouchEnchantment);
-        plugin.getServer().getPluginManager().registerEvents(smeltingTouchEnchantment, plugin);
-        plugin.getServer().getPluginManager().registerEvents(new SmeltingTouchRecipe(), plugin);
+        if (Config.CAN_SMELTING_TOUCH) {
+            smeltingTouchEnchantment = new SmeltingTouchEnchantment("smelting_touch");
+            registerEnchantment(smeltingTouchEnchantment);
+            plugin.getServer().getPluginManager().registerEvents(smeltingTouchEnchantment, plugin);
+            plugin.getServer().getPluginManager().registerEvents(new SmeltingTouchRecipe(), plugin);
+        }
         SmeltingTouchRecipe.registerRecipe();
         getServer().getLogger().log(Level.INFO, "[Spongify] Smelting Touch Enchant Registered");
 
         // Bundles
-        if (plugin.getConfig().getBoolean("Recipe_Enabled")) {
+        if (Config.CAN_CRAFT_BUNDLE) {
             BundleRecipe.registerRecipe();
             getServer().getLogger().log(Level.INFO, "[Spongify] Bundle Recipe Registered");
         }
@@ -69,7 +72,7 @@ public class SetupUtil {
 
 
         // Compressed Crops
-        if (plugin.getConfig().getBoolean("Allow_Compressed_Crafting")) {
+        if (Config.CAN_CRAFT_COMPRESSED_CROPS) {
             Bukkit.addRecipe(new CompressedCropsRecipe().getCarrotCompressRecipe());
             Bukkit.addRecipe(new CompressedCropsRecipe().getCarrotDecompressRecipe());
             Bukkit.addRecipe(new CompressedCropsRecipe().getPotatoCompressRecipe());
@@ -85,11 +88,10 @@ public class SetupUtil {
             Bukkit.addRecipe(new CompressedCropsRecipe().getBeetrootDecompress9Recipe());
             getServer().getLogger().log(Level.INFO, "[Spongify] Compressed Crops Recipe Registered");
         }
-        // Lore
-        if (plugin.getConfig().getBoolean("Command_Enabled")) {
-            plugin.getCommand("spongify").setExecutor(new SpongifyCommand());
-            getServer().getLogger().log(Level.INFO, "[Spongify] Spongify Command Registered");
-        }
+        // Spongify Command
+        plugin.getCommand("spongify").setExecutor(new SpongifyCommand());
+        getServer().getLogger().log(Level.INFO, "[Spongify] Spongify Command Registered");
+
 
         // Auto Tab Complete
         plugin.getCommand("spongify").setTabCompleter(new SpongifyTabComplete());

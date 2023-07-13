@@ -1,6 +1,7 @@
 package me.spongycat.spongify.enchants;
 
 import me.spongycat.spongify.Spongify;
+import me.spongycat.spongify.util.NameSpaceKeyCreatorUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -14,6 +15,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.List;
@@ -24,13 +26,12 @@ import java.util.Random;
 
 public class AutoReplantEnchantment extends Enchantment implements Listener {
     public AutoReplantEnchantment(String namespace) {
-        super(new NamespacedKey(Spongify.getPlugin(Spongify.class), namespace));
+        super(NameSpaceKeyCreatorUtil.getNameSpacedKey(namespace));
     }
 
     private final List<Material> cropList = Arrays.asList(Material.WHEAT, Material.POTATOES, Material.CARROTS, Material.BEETROOTS);
     @EventHandler
-    public void breakEvent(BlockBreakEvent event) {
-
+    public void onBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
         Block block = event.getBlock();
         ItemStack tool = player.getInventory().getItemInMainHand();
@@ -71,7 +72,7 @@ public class AutoReplantEnchantment extends Enchantment implements Listener {
 
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return "Auto Replant";
     }
 
@@ -86,7 +87,7 @@ public class AutoReplantEnchantment extends Enchantment implements Listener {
     }
 
     @Override
-    public EnchantmentTarget getItemTarget() {
+    public @NotNull EnchantmentTarget getItemTarget() {
         return EnchantmentTarget.TOOL;
     }
 
@@ -101,12 +102,12 @@ public class AutoReplantEnchantment extends Enchantment implements Listener {
     }
 
     @Override
-    public boolean conflictsWith(Enchantment enchantment) {
+    public boolean conflictsWith(@NotNull Enchantment enchantment) {
         return false;
     }
 
     @Override
-    public boolean canEnchantItem(ItemStack itemStack) {
+    public boolean canEnchantItem(@NotNull ItemStack itemStack) {
         return true;
     }
 }

@@ -1,6 +1,6 @@
 package me.spongycat.spongify.recipes;
 
-import me.spongycat.spongify.items.Item;
+import me.spongycat.spongify.spongifyData.Item;
 import me.spongycat.spongify.util.NameSpaceKeyCreatorUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.RecipeChoice;

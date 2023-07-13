@@ -1,6 +1,7 @@
 package me.spongycat.spongify.recipes;
 
-import me.spongycat.spongify.items.Item;
+import me.spongycat.spongify.spongifyData.Config;
+import me.spongycat.spongify.spongifyData.Item;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -37,7 +38,7 @@ public class SmeltingTouchRecipe implements Listener {
         oreRecipe.setIngredient('A', diamondChoice);
         oreRecipe.setIngredient('B', Material.BOOK);
 
-        if (plugin.getConfig().getBoolean("Allow_Book_Crafting")) {
+        if (Config.CAN_CRAFT_SMELTING_TOUCH) {
             Bukkit.addRecipe(oreRecipe);
             Bukkit.addRecipe(diamondRecipe);
         }
@@ -50,7 +51,7 @@ public class SmeltingTouchRecipe implements Listener {
         Bukkit.removeRecipe(key);
         ItemStack[] items = event.getInventory().getContents();
 
-        if (plugin.getConfig().getBoolean("Allow_Adding_Smelting_Enchant")) {
+        if (Config.CAN_ADD_SMELTING_TOUCH) {
             if (items[0] != null && items[1] != null) {
                 if (items[0].getType() == Material.NETHERITE_PICKAXE && items[1].isSimilar(Item.SMELTING_TOUCH_BOOK) && items[1].getAmount() == 1) {
                     ItemStack result = items[0];

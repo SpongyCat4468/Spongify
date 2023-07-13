@@ -1,6 +1,6 @@
 package me.spongycat.spongify.listeners;
 
-import me.spongycat.spongify.items.Item;
+import me.spongycat.spongify.spongifyData.Item;
 import me.spongycat.spongify.util.CommandUtil;
 import org.bukkit.entity.EnderPearl;
 import org.bukkit.entity.Fireball;

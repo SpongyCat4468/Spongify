@@ -1,7 +1,8 @@
 package me.spongycat.spongify.listeners;
 
 import me.spongycat.spongify.items.CustomArrowItem;
-import me.spongycat.spongify.items.Item;
+import me.spongycat.spongify.spongifyData.Config;
+import me.spongycat.spongify.spongifyData.Item;
 import me.spongycat.spongify.util.GiveUtil;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -23,6 +24,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -192,15 +194,15 @@ public class CustomArrowListener implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
         if (e.getBlock().getType() == Material.DIAMOND_ORE && isNaturallyGenerated(e.getBlock())) {
-            if (drop(plugin.getConfig().getInt("Diamond_Ore"))) {
+            if (drop(Config.DIAMOND_ARROWHEAD_CHANCE)) {
                 GiveUtil.givePlayer(e.getPlayer(), CustomArrowItem.getDiamondArrowhead(), 1, "Diamond Arrowhead");
             }
         } else if (e.getBlock().getType() == Material.DEEPSLATE_DIAMOND_ORE && isNaturallyGenerated(e.getBlock())) {
-            if (drop(plugin.getConfig().getInt("Diamond_Ore"))) {
+            if (drop(Config.DIAMOND_ARROWHEAD_CHANCE)) {
                 GiveUtil.givePlayer(e.getPlayer(), CustomArrowItem.getDiamondArrowhead(), 1, "Diamond Arrowhead");
             }
         } else if (e.getBlock().getType() == Material.ANCIENT_DEBRIS && isNaturallyGenerated(e.getBlock())) {
-            if (drop(plugin.getConfig().getInt("Ancient_Debris"))) {
+            if (drop(Config.NETHERITE_ARROWHEAD_CHANCE)) {
                 GiveUtil.givePlayer(e.getPlayer(), CustomArrowItem.getNetheriteArrowhead(), 1, "Netherite Arrowhead");
             }
         }
@@ -343,37 +345,37 @@ public class CustomArrowListener implements Listener {
 
     public void clearAllStatus(UUID ID, String identifier) {
         if (playersShootingNetherite.contains(ID)) {
-            if (identifier != "ne") {
+            if (!Objects.equals(identifier, "ne")) {
                 playersShootingNetherite.remove(ID);
             }
         }
         if (playersShootingTeleport.contains(ID)) {
-            if (identifier != "te") {
+            if (!Objects.equals(identifier, "te")) {
                 playersShootingTeleport.remove(ID);
             }
         }
         if (playersShootingLightning.contains(ID)) {
-            if (identifier != "li") {
+            if (!Objects.equals(identifier, "li")) {
                 playersShootingLightning.remove(ID);
             }
          }
         if (playersShootingLevitate.contains(ID)) {
-            if (identifier != "le") {
+            if (!Objects.equals(identifier, "le")) {
                 playersShootingLevitate.remove(ID);
             }
         }
         if (playersShootingWither.contains(ID)) {
-            if (identifier != "wi") {
+            if (!Objects.equals(identifier, "wi")) {
                 playersShootingWither.remove(ID);
             }
         }
         if (playersShootingDiamond.contains(ID)) {
-            if (identifier != "di") {
+            if (!Objects.equals(identifier, "di")) {
                 playersShootingDiamond.remove(ID);
             }
         }
         if (playersShootingExplosive.contains(ID)) {
-            if (identifier != "ex") {
+            if (!Objects.equals(identifier, "ex")) {
                 playersShootingExplosive.remove(ID);
             }
         }

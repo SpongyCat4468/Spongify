@@ -3,8 +3,10 @@ version: '${project.version}'
 main: me.spongycat.spongify.Spongify
 api-version: "1.20"
 load: STARTUP
-softdepend: [DecentHolograms]
-authors: [SpongyCat]
+depend:
+  - DecentHolograms
+  - PlayerWarps
+author: SpongyCat
 description: Spongify Your World!
 commands:
   spongify:

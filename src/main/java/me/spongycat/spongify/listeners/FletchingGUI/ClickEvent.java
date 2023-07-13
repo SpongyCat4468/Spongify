@@ -2,7 +2,7 @@ package me.spongycat.spongify.listeners.FletchingGUI;
 
 import me.spongycat.spongify.GUI.FletchingTableGUI;
 import me.spongycat.spongify.items.CustomArrowItem;
-import me.spongycat.spongify.items.Item;
+import me.spongycat.spongify.spongifyData.Item;
 import me.spongycat.spongify.util.ItemStackUtil;
 import me.spongycat.spongify.util.PlayerUtil;
 import org.bukkit.ChatColor;

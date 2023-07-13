@@ -1,7 +1,7 @@
 package me.spongycat.spongify.recipes;
 
 import me.spongycat.spongify.Spongify;
-import me.spongycat.spongify.items.Item;
+import me.spongycat.spongify.spongifyData.Item;
 import me.spongycat.spongify.util.ItemStackUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

@@ -18,17 +18,13 @@ public class SpongifyCommand implements CommandExecutor {
                     case "lore" -> Function.lore(p, args);
                     case "version" -> Function.version(p);
                     case "give" -> {
-                        int amount = Integer.valueOf(args[2]);
+                        int amount = Integer.parseInt(args[2]);
                         Function.give(p, args[1], amount);
                     }
                     case "about" -> Function.about(p);
                     case "reload" -> Function.reload(p);
                     case "debug" -> Function.debug(p);
-                    case "lavasurvival" -> {
-                        if (args[1].equals("spawnHolo")) {
-                            Function.lavasurvival(p, "Lava_Survival");
-                        }
-                    }
+                    case "lavasurvival" -> Function.lavasurvival(p, args[1]);
                 }
             } else {
                 Function.warn(p);

@@ -1,5 +1,6 @@
 package me.spongycat.spongify.listeners;
 
+import me.spongycat.spongify.spongifyData.Config;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
@@ -11,7 +12,9 @@ public class ArmorStandPlaceListener implements Listener {
     public void onArmorStandPlace(EntityPlaceEvent e) {
         if (e.getEntityType() == EntityType.ARMOR_STAND) {
             ArmorStand armorStand = (ArmorStand) e.getEntity();
-            armorStand.setArms(true);
+            if (Config.IS_ARMOR_STAND_WITH_ARM) {
+                armorStand.setArms(true);
+            }
         }
     }
 }
